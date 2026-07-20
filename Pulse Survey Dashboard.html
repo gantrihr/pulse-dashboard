@@ -578,12 +578,12 @@
 // DATA — update RESPONSES + ELIGIBLE_HC each period; all else is historical
 // ════════════════════════════════════════════════════════════════════════════
 // Periods limited to months with an actual survey export on file for the Production/Operations
-// scope (Feb 2025–May 2026). No June 2025 or Jan 2026 file exists, so those months are omitted
-// rather than invented. Oct 2025 and May 2026 are the larger biannual Engagement Surveys; all
-// others are monthly Pulse Surveys.
+// scope (Feb 2025–Jul 2026). No June 2025, Jan 2026, or June 2026 file exists, so those months are
+// omitted rather than invented. Oct 2025 and May 2026 are the larger biannual Engagement Surveys;
+// all others (including Jul 2026) are monthly Pulse Surveys.
 const PERIODS_FULL = [
   'Feb 2025','Mar 2025','Apr 2025','May 2025','Jul 2025','Aug 2025','Sep 2025',
-  'Oct 2025','Nov 2025','Dec 2025','Feb 2026','Mar 2026','Apr 2026','May 2026'
+  'Oct 2025','Nov 2025','Dec 2025','Feb 2026','Mar 2026','Apr 2026','May 2026','Jul 2026'
 ];
 
 // STRICT HISTORICAL ACCURACY — every period's category mapping comes from that period's own
@@ -650,13 +650,13 @@ const PERIODS_FULL = [
 // clarity; averaging both is the correct application of the same "simple mean of mapped questions"
 // rule every other category already follows.
 const SCORES = {
-  'Autonomy':              [3.83,4.0,4.25,3.93,3.4,3.4,3.36,3.71,3.44,3.6,3.54,3.23,4.25,4.09],
-  'Competency':            [3.67,4.4,4.38,3.5,3.65,3.4,3.5,3.82,3.54,3.9,3.96,4.18,3.79,3.47],
-  'Relatedness':           [3.83,4.2,3.75,3.36,3.4,3.54,3.41,2.98,3.46,3.2,3.87,3.82,4.04,3.44],
-  'Leadership Connection': [3.83,4.3,4.25,null,3.24,2.74,3.2,3.37,3.47,3.0,3.79,3.27,3.89,3.64],
-  'Feeling Valued':            [3.44,4.02,3.11,2.78,3.2,2.6,2.86,3.2,3.31,3.4,3.51,3.63,3.26,3.70],
-  'Clarity to Succeed':    [null,null,null,null,null,null,null,3.71,3.27,3.7,3.96,3.27,3.79,3.6],
-  'Trust':                 [null,null,null,null,null,null,null,null,null,3.2,3.95,3.55,3.42,3.83],
+  'Autonomy':              [3.83,4.0,4.25,3.93,3.4,3.4,3.36,3.71,3.44,3.6,3.54,3.23,4.25,4.09,3.88],
+  'Competency':            [3.67,4.4,4.38,3.5,3.65,3.4,3.5,3.82,3.54,3.9,3.96,4.18,3.79,3.47,3.54],
+  'Relatedness':           [3.83,4.2,3.75,3.36,3.4,3.54,3.41,2.98,3.46,3.2,3.87,3.82,4.04,3.44,3.97],
+  'Leadership Connection': [3.83,4.3,4.25,null,3.24,2.74,3.2,3.37,3.47,3.0,3.79,3.27,3.89,3.64,4.36],
+  'Feeling Valued':            [3.44,4.02,3.11,2.78,3.2,2.6,2.86,3.2,3.31,3.4,3.51,3.63,3.26,3.70,3.47],
+  'Clarity to Succeed':    [null,null,null,null,null,null,null,3.71,3.27,3.7,3.96,3.27,3.79,3.6,3.54],
+  'Trust':                 [null,null,null,null,null,null,null,null,null,3.2,3.95,3.55,3.42,3.83,3.38],
 };
 
 const COLORS = {
@@ -687,22 +687,22 @@ const COLORS = {
 // there was no silent mismatch. This has not been through the same review as Production's
 // hand-verified numbers — treat as first-pass and confirm before relying on it beyond this chart.
 const HQ_SCORES = {
-  'Autonomy':              [3.37,3.67,3.55,3.9,3.62,3.09,3.35,3.84,3.33,3.43,3.71,3.5,4.08,3.95],
-  'Competency':            [3.66,3.37,3.37,3.47,3.41,3.44,3.5,3.93,3.07,3.57,3.71,3.96,3.58,3.58],
-  'Relatedness':           [3.94,4.33,3.91,3.47,3.0,3.85,3.82,3.8,3.5,3.63,3.96,3.75,3.92,4.16],
-  'Leadership Connection': [2.56,3.37,3.46,null,2.91,2.59,3.28,3.58,2.14,3.27,4.18,3.83,3.6,4.03],
-  'Feeling Valued':        [2.8,2.69,2.94,2.81,2.8,2.7,2.99,3.48,3.4,3.31,3.67,3.41,3.5,3.81],
-  'Clarity to Succeed':    [null,null,null,null,null,null,null,3.57,3.2,3.53,3.71,3.83,3.58,3.41],
-  'Trust':                 [null,null,null,null,null,null,null,null,null,2.93,3.78,3.59,3.23,3.59],
+  'Autonomy':              [3.37,3.67,3.55,3.9,3.62,3.09,3.35,3.84,3.33,3.43,3.71,3.5,4.08,3.95,3.77],
+  'Competency':            [3.66,3.37,3.37,3.47,3.41,3.44,3.5,3.93,3.07,3.57,3.71,3.96,3.58,3.58,3.66],
+  'Relatedness':           [3.94,4.33,3.91,3.47,3.0,3.85,3.82,3.8,3.5,3.63,3.96,3.75,3.92,4.16,3.7],
+  'Leadership Connection': [2.56,3.37,3.46,null,2.91,2.59,3.28,3.58,2.14,3.27,4.18,3.83,3.6,4.03,4.11],
+  'Feeling Valued':        [2.8,2.69,2.94,2.81,2.8,2.7,2.99,3.48,3.4,3.31,3.67,3.41,3.5,3.81,3.67],
+  'Clarity to Succeed':    [null,null,null,null,null,null,null,3.57,3.2,3.53,3.71,3.83,3.58,3.41,3.66],
+  'Trust':                 [null,null,null,null,null,null,null,null,null,2.93,3.78,3.59,3.23,3.59,3.31],
 };
 const REMOTE_SCORES = {
-  'Autonomy':              [3.91,4.11,3.88,4.19,3.83,3.27,3.18,3.62,3.45,3.8,3.75,3.0,3.9,4.05],
-  'Competency':            [3.87,4.0,3.81,3.88,3.89,3.46,3.27,3.55,3.4,3.6,3.15,3.8,2.95,3.42],
-  'Relatedness':           [4.0,4.22,4.0,3.94,3.11,4.0,3.77,3.46,3.75,3.85,3.95,3.2,3.45,3.9],
-  'Leadership Connection': [3.09,4.06,3.75,null,3.32,3.02,3.91,3.15,2.28,3.4,3.58,2.8,2.96,3.7],
-  'Feeling Valued':        [3.34,3.32,3.33,3.11,3.08,2.49,2.49,2.74,3.62,3.18,3.49,2.87,2.96,3.4],
-  'Clarity to Succeed':    [null,null,null,null,null,null,null,3.37,3.4,3.6,3.15,2.8,2.95,3.2],
-  'Trust':                 [null,null,null,null,null,null,null,null,null,3.3,4.11,3.22,3.7,3.68],
+  'Autonomy':              [3.91,4.11,3.88,4.19,3.83,3.27,3.18,3.62,3.45,3.8,3.75,3.0,3.9,4.05,3.91],
+  'Competency':            [3.87,4.0,3.81,3.88,3.89,3.46,3.27,3.55,3.4,3.6,3.15,3.8,2.95,3.42,2.9],
+  'Relatedness':           [4.0,4.22,4.0,3.94,3.11,4.0,3.77,3.46,3.75,3.85,3.95,3.2,3.45,3.9,4.09],
+  'Leadership Connection': [3.09,4.06,3.75,null,3.32,3.02,3.91,3.15,2.28,3.4,3.58,2.8,2.96,3.7,4.23],
+  'Feeling Valued':        [3.34,3.32,3.33,3.11,3.08,2.49,2.49,2.74,3.62,3.18,3.49,2.87,2.96,3.4,3.51],
+  'Clarity to Succeed':    [null,null,null,null,null,null,null,3.37,3.4,3.6,3.15,2.8,2.95,3.2,2.9],
+  'Trust':                 [null,null,null,null,null,null,null,null,null,3.3,4.11,3.22,3.7,3.68,2.45],
 };
 // Keyed lookup used only by the Category Scores Over Time chart's rendering functions
 // (buildCategoryDataset, buildCategoryTrendlineDataset, computeStableYBounds, renderTrend,
@@ -829,8 +829,12 @@ const PARTICIPATION_METRICS = [
     eligible:{Production:17,HQ:19,Remote:12,All:48}, responses:{Production:12,HQ:14,Remote:10,All:36} },
   { month:'May 2026', type:'Engagement', launch:'2026-05-26', close:'2026-06-05', status:'Completed',
     eligible:{Production:19,HQ:20,Remote:12,All:51}, responses:{Production:14,HQ:17,Remote:10,All:41} },
-  { month:'Jul 2026', type:'Pulse',      launch:'2026-07-13', close:'2026-07-17', status:'In Progress',
-    eligible:{Production:null,HQ:null,Remote:null,All:null}, responses:{Production:null,HQ:null,Remote:null,All:null} },
+  // Jul 2026 figures were confirmed 2026-07-20 with official Production/HQ/Remote Eligible and
+  // Response counts, replacing the earlier roster-derived placeholder (Production 20/16, HQ 21/13,
+  // Remote 12/11, All 53/40) that stood in before Participation Metrics.csv had an official row for
+  // this period. Reconciled: Production 19/13 + HQ 22/16 + Remote 11/11 = All 52/40.
+  { month:'Jul 2026', type:'Pulse',      launch:'2026-07-13', close:'2026-07-17', status:'Completed',
+    eligible:{Production:19,HQ:22,Remote:11,All:52}, responses:{Production:13,HQ:16,Remote:11,All:40} },
 ];
 
 // The Engagement Index's own period axis — deliberately independent of PERIODS_FULL (which
@@ -862,16 +866,16 @@ Object.keys(RESPONSES_BY_EXPERIENCE).forEach(exp => {
 // Clarity to Succeed, which is only asked occasionally and whose questions are already folded into
 // Competency's own average — including it too would double-count them), matching the original
 // dashboard's methodology, now applied to normalized averages instead of favorability.
-const OVERALL_SCORES = [3.72,4.18,3.95,3.39,3.38,3.14,3.27,3.42,3.44,3.38,3.77,3.61,3.77,3.70];
+const OVERALL_SCORES = [3.72,4.18,3.95,3.39,3.38,3.14,3.27,3.42,3.44,3.38,3.77,3.61,3.77,3.70,3.77];
 
 // Clarity to Succeed and Trust were only ever measured starting Oct 2025 — any apparent value
 // before that (e.g. from a Competency question that superficially resembled a clarity question,
 // or from folding a retaliation-fear question into Trust before Trust existed as a category) is
 // a false positive and is nulled rather than counted. Never backfill either category before then.
-const CLARITY_ROLE   = [null,null,null,null,null,null,null,4.06,null,4.0,4.09,null,3.92,3.57];
-const CLARITY_GROWTH = [null,null,null,null,null,null,null,3.35,3.27,3.4,3.82,3.27,3.67,3.64];
-const CLARITY_ROLE_Q = [null,null,null,null,null,null,null,'I have a clear understanding of my responsibilities.',null,'I have enough clarity around expectations to know when I am performing at a high level.','I know what is expected of me at my current level.',null,'I know exactly what success looks like in my current role.','I know what success looks like in my current role.'];
-const CLARITY_GROWTH_Q = [null,null,null,null,null,null,null,'I am able to acquire the knowledge and skills to get to the next stage of my career.','I have access to guidance and conversations that help me plan my career.','I feel empowered to take ownership of my development because I understand what\'s needed to advance.','I can identify clear milestones or skills that would move me toward the next level in my role.','I can tell my manager is thinking about my future growth, not just my current role.','I understand what I need to do to reach the next level.','I understand what it takes to reach the next level.'];
+const CLARITY_ROLE   = [null,null,null,null,null,null,null,4.06,null,4.0,4.09,null,3.92,3.57,3.69];
+const CLARITY_GROWTH = [null,null,null,null,null,null,null,3.35,3.27,3.4,3.82,3.27,3.67,3.64,3.38];
+const CLARITY_ROLE_Q = [null,null,null,null,null,null,null,'I have a clear understanding of my responsibilities.',null,'I have enough clarity around expectations to know when I am performing at a high level.','I know what is expected of me at my current level.',null,'I know exactly what success looks like in my current role.','I know what success looks like in my current role.','I know exactly what success looks like in my current role.'];
+const CLARITY_GROWTH_Q = [null,null,null,null,null,null,null,'I am able to acquire the knowledge and skills to get to the next stage of my career.','I have access to guidance and conversations that help me plan my career.','I feel empowered to take ownership of my development because I understand what\'s needed to advance.','I can identify clear milestones or skills that would move me toward the next level in my role.','I can tell my manager is thinking about my future growth, not just my current role.','I understand what I need to do to reach the next level.','I understand what it takes to reach the next level.','I understand what I need to do to reach the next level.'];
 
 // PER-EXPERIENCE CLARITY SCORES — feeds ONLY the Clarity of Expectations vs Growth Clarity
 // chart's Experience selector. CLARITY_ROLE/CLARITY_GROWTH above (Production) are unchanged and
@@ -895,10 +899,10 @@ const CLARITY_GROWTH_Q = [null,null,null,null,null,null,null,'I am able to acqui
 // this chart. Null-padded before Oct 2025 and for any period missing that question, matching
 // CLARITY_ROLE_Q/CLARITY_GROWTH_Q's own null pattern (shared question bank => same periods are
 // missing a given question for every Experience).
-const HQ_CLARITY_ROLE       = [null,null,null,null,null,null,null,4.0,null,3.53,4.0,null,3.85,3.69];
-const HQ_CLARITY_GROWTH     = [null,null,null,null,null,null,null,3.14,3.20,3.27,3.42,3.83,3.31,3.13];
-const REMOTE_CLARITY_ROLE   = [null,null,null,null,null,null,null,3.82,null,3.60,3.70,null,3.30,3.80];
-const REMOTE_CLARITY_GROWTH = [null,null,null,null,null,null,null,2.91,3.40,3.40,2.60,2.80,2.60,2.60];
+const HQ_CLARITY_ROLE       = [null,null,null,null,null,null,null,4.0,null,3.53,4.0,null,3.85,3.69,3.69];
+const HQ_CLARITY_GROWTH     = [null,null,null,null,null,null,null,3.14,3.20,3.27,3.42,3.83,3.31,3.13,3.62];
+const REMOTE_CLARITY_ROLE   = [null,null,null,null,null,null,null,3.82,null,3.60,3.70,null,3.30,3.80,3.45];
+const REMOTE_CLARITY_GROWTH = [null,null,null,null,null,null,null,2.91,3.40,3.40,2.60,2.80,2.60,2.60,2.36];
 
 // Keyed lookup used only by the Clarity chart's Experience selector (currentClarityScores(),
 // computeClarityYBounds()). The Takeaway summary below the chart keeps reading CLARITY_ROLE/
@@ -943,41 +947,135 @@ const CLARITY_BY_EXPERIENCE = {
 //   Survey Analytics export — it has zero Favorability bucket counts everywhere, so there is no
 //   discrete Agree/Strongly-Agree data to compute a % Favorable from. This is a source-data
 //   limitation, not a mapping gap.
-// - Leadership Connection and Trust have several null periods for the same reason — some of
-//   their mapped questions are continuous-scale (zero buckets) in a given period; when ALL of a
-//   category's mapped questions that period lack buckets, the category is null that period. When
-//   only SOME do, the null ones are simply excluded from that period's mean (matching how a
-//   missing/ungraded input is dropped from any other average in this file).
-// - Autonomy, Competency, and Relatedness have full 14-period coverage in every Experience.
+// - Leadership Connection and Trust have several null periods for the same reason — some of their
+//   mapped questions are continuous-scale (zero buckets) in a given period; when ALL of a
+//   category's mapped questions that period lack buckets, the category is null that period. As of
+//   2026-07-XX, the Category Scores Over Time chart shows a clearly-labeled Normalized Score at
+//   these specific points instead of leaving a gap — see NORMALIZED SCORE FALLBACK below — but
+//   this array itself stays null for them, same as before the (now-superseded) 2026-07-20
+//   derived-Favorability-estimate attempt; see the Data Dictionary Change Log for that history.
+// - Autonomy, Competency, and Relatedness have full coverage in every period (15, through Jul 2026)
+//   and every Experience.
 // - Clarity to Succeed / Trust / Clarity - Role / Clarity - Growth are additionally null before
-//   Oct 2025, matching CLARITY_ROLE_Q/CLARITY_GROWTH_Q's own null pattern (not measured yet).
+//   Oct 2025, matching CLARITY_ROLE_Q/CLARITY_GROWTH_Q's own null pattern (not measured yet — no
+//   mapped question existed, as distinct from a mapped question existing but lacking buckets).
 const FAVORABILITY_PRODUCTION = {
-  'Autonomy':              [70.0,71.4,70.0,76.9,52.5,52.0,56.8,60.3,50.0,60.0,63.6,54.5,83.3,80.4],
-  'Competency':            [70.0,71.4,85.0,42.3,62.5,52.0,56.8,68.0,56.7,70.0,81.8,77.3,62.5,54.8],
-  'Relatedness':           [77.5,50.0,70.0,46.2,50.0,54.0,50.0,35.3,53.3,40.0,72.7,63.6,75.0,55.7],
-  'Leadership Connection': [70.0,71.4,90.0,null,null,null,null,52.5,53.3,40.0,null,45.5,null,63.1],
-  'Feeling Valued':        [null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  'Clarity to Succeed':    [null,null,null,null,null,null,null,64.7,46.7,60.0,81.8,45.5,62.5,64.3],
-  'Trust':                 [null,null,null,null,null,null,null,null,null,40.0,null,null,41.7,70.0],
+  'Autonomy':              [70.0,71.4,70.0,76.9,52.5,52.0,56.8,60.3,50.0,60.0,63.6,54.5,83.3,80.4,75.0],
+  'Competency':            [70.0,71.4,85.0,42.3,62.5,52.0,56.8,68.0,56.7,70.0,81.8,77.3,62.5,54.8,50.0],
+  'Relatedness':           [77.5,50.0,70.0,46.2,50.0,54.0,50.0,35.3,53.3,40.0,72.7,63.6,75.0,55.7,75.0],
+  // Leadership Connection: idx 4,5,6,10,12,14 (Jul 2025, Aug 2025, Sep 2025, Feb 2026, Apr 2026,
+  // Jul 2026) have a mapped question but NO source Favorable/Neutral/Unfavorable buckets (legacy
+  // 1–10 scale) — left null, per the NORMALIZED SCORE FALLBACK note above. The Category Scores
+  // Over Time chart displays a clearly-labeled Normalized Score at these points instead (see
+  // NORMALIZED_SCORE_LC_TRUST below), but that is NOT stored here — this array holds only real,
+  // bucket-derived Favorability, exactly as it did before 2026-07-20.
+  'Leadership Connection': [70.0,71.4,90.0,null,null,null,null,52.5,53.3,40.0,null,45.5,null,63.1,null],
+  'Feeling Valued':        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+  'Clarity to Succeed':    [null,null,null,null,null,null,null,64.7,46.7,60.0,81.8,45.5,62.5,64.3,50.0],
+  // Trust: idx 10,11 (Feb 2026, Mar 2026) — same situation as Leadership Connection above; see
+  // NORMALIZED_SCORE_LC_TRUST for the chart's Normalized Score fallback.
+  'Trust':                 [null,null,null,null,null,null,null,null,null,40.0,null,null,41.7,70.0,62.5],
 };
 const FAVORABILITY_HQ = {
-  'Autonomy':              [50.0,66.7,54.5,67.9,61.8,47.1,55.9,61.6,43.3,60.0,58.3,45.8,88.5,75.0],
-  'Competency':            [62.5,46.7,50.0,53.6,47.1,47.1,55.9,65.9,36.7,63.3,54.2,66.7,69.2,62.5],
-  'Relatedness':           [75.0,80.0,81.8,50.0,38.2,64.7,61.8,69.8,56.7,66.7,66.7,66.7,76.9,83.8],
-  'Leadership Connection': [18.8,53.3,50.0,null,null,null,null,51.9,66.7,53.3,null,66.7,null,77.1],
-  'Feeling Valued':        [null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  'Clarity to Succeed':    [null,null,null,null,null,null,null,53.6,40.0,60.0,54.2,66.7,69.2,59.4],
-  'Trust':                 [null,null,null,null,null,null,null,null,null,46.7,null,null,46.2,67.5],
+  'Autonomy':              [50.0,66.7,54.5,67.9,61.8,47.1,55.9,61.6,43.3,60.0,58.3,45.8,88.5,75.0,69.2],
+  'Competency':            [62.5,46.7,50.0,53.6,47.1,47.1,55.9,65.9,36.7,63.3,54.2,66.7,69.2,62.5,73.1],
+  'Relatedness':           [75.0,80.0,81.8,50.0,38.2,64.7,61.8,69.8,56.7,66.7,66.7,66.7,76.9,83.8,61.6],
+  'Leadership Connection': [18.8,53.3,50.0,null,null,null,null,51.9,66.7,53.3,null,66.7,null,77.1,null],
+  'Feeling Valued':        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+  'Clarity to Succeed':    [null,null,null,null,null,null,null,53.6,40.0,60.0,54.2,66.7,69.2,59.4,73.1],
+  'Trust':                 [null,null,null,null,null,null,null,null,null,46.7,null,null,46.2,67.5,53.8],
 };
 const FAVORABILITY_REMOTE = {
-  'Autonomy':              [54.5,77.8,62.5,87.5,77.8,50.0,45.5,58.0,50.0,70.0,65.0,35.0,75.0,77.5],
-  'Competency':            [68.2,66.7,62.5,81.2,66.7,54.5,54.5,60.6,45.0,50.0,50.0,65.0,35.0,53.3],
-  'Relatedness':           [72.7,88.9,87.5,62.5,44.4,68.2,68.2,58.6,60.0,70.0,75.0,45.0,60.0,72.0],
-  'Leadership Connection': [45.5,72.2,56.2,null,null,null,null,52.1,70.0,60.0,null,30.0,null,60.0],
-  'Feeling Valued':        [null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  'Clarity to Succeed':    [null,null,null,null,null,null,null,54.5,50.0,50.0,50.0,30.0,35.0,50.0],
-  'Trust':                 [null,null,null,null,null,null,null,null,null,60.0,null,null,60.0,70.0],
+  'Autonomy':              [54.5,77.8,62.5,87.5,77.8,50.0,45.5,58.0,50.0,70.0,65.0,35.0,75.0,77.5,72.7],
+  'Competency':            [68.2,66.7,62.5,81.2,66.7,54.5,54.5,60.6,45.0,50.0,50.0,65.0,35.0,53.3,40.9],
+  'Relatedness':           [72.7,88.9,87.5,62.5,44.4,68.2,68.2,58.6,60.0,70.0,75.0,45.0,60.0,72.0,77.2],
+  'Leadership Connection': [45.5,72.2,56.2,null,null,null,null,52.1,70.0,60.0,null,30.0,null,60.0,null],
+  'Feeling Valued':        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+  'Clarity to Succeed':    [null,null,null,null,null,null,null,54.5,50.0,50.0,50.0,30.0,35.0,50.0,40.9],
+  'Trust':                 [null,null,null,null,null,null,null,null,null,60.0,null,null,60.0,70.0,27.3],
 };
+
+// ════════════════════════════════════════════════════════════════════════════
+// NORMALIZED SCORE FALLBACK — Leadership Connection / Trust, legacy 1–10-scale periods with no
+// source Favorable/Neutral/Unfavorable buckets. Supersedes the 2026-07-20 "derived Favorability
+// estimate" approach (which classified these cells against the 7–10/6/1–5 bounds and stored the
+// result AS Favorability) — replaced per explicit user decision on the grounds that there is no
+// valid way to estimate a true favorable/unfavorable split from a bare average, and doing so risks
+// being read as a real percentage. See Data Dictionary Change Log for the full history of both
+// the original rule, the derived-estimate attempt, and this replacement.
+//
+// For these specific cells, NO Favorability value is stored or implied (FAVORABILITY_PRODUCTION/
+// HQ/REMOTE above are null here, exactly as they were before 2026-07-20). Instead, the Category
+// Scores Over Time chart displays a NORMALIZED SCORE — the raw 1–10 average rescaled onto a plain
+// 0–100 range, with NO banding/clamping and no claim to represent "% of respondents who were
+// favorable":
+//     Normalized Score = ((rawAverage − 1) / 9) × 100        (1 → 0, 5.5 → 50, 10 → 100)
+// rawAverage is recovered from the already-computed Normalized Average Score (SCORES/HQ_SCORES/
+// REMOTE_SCORES) via the same inverse-normalization already used elsewhere in this file
+// (raw = 1 + (normalized − 1) × 9 / 4, e.g. FEELING_VALUED_RAW10 above), then rescaled per the
+// formula above and rounded to 1 decimal, matching this file's existing rounding convention.
+// 'All' is a fixed, response-count-weighted figure (same weighting principle as
+// weightedAllSeries() elsewhere), computed once and hand-transcribed here like every other
+// manually-maintained figure in this file — not auto-derived from Production/HQ/Remote at runtime.
+//
+// This is read ONLY by the Category Scores Over Time chart's rendering (buildCategoryDataset(),
+// the trend tooltip in renderTrend()) via favorabilityDisplayValue() below — Insights Hub, Key
+// Questions, Question Insights, and every other section continue reading FAVORABILITY_BY_EXPERIENCE
+// directly and see these exact cells as null/unavailable, exactly as before 2026-07-20. Normalized
+// Average Score (SCORES/HQ_SCORES/REMOTE_SCORES) is completely unaffected by any of this.
+//
+// NO ON-SCREEN DISTINCTION (per explicit user decision, superseding this feature's original
+// launch): the chart deliberately renders these points with the exact same marker, color, radius,
+// and tooltip wording as a real Favorability point — no diamond/hollow marker, no legend entry, no
+// "(est.)"/"Normalized Score" text anywhere in the UI (see buildCategoryDataset() and the trend
+// tooltip's label callback in renderTrend()). The isFallback flag returned by
+// favorabilityDisplayValue() still exists in the data layer and is still checked by both of those
+// functions to decide WHICH VALUE to plot/format, but neither function branches on it for styling
+// or wording anymore — a viewer of the dashboard has no way to tell these points apart from real
+// Favorability. The distinction is preserved only here, in code, and in the Data Dictionary.
+//
+// Affected cells — identical set to the superseded derived-estimate approach:
+//   Leadership Connection — Jul 2025, Aug 2025, Sep 2025, Feb 2026, Apr 2026, Jul 2026
+//   Trust — Feb 2026, Mar 2026
+const NORMALIZED_SCORE_LC_TRUST = {
+  'Leadership Connection': {
+    'Jul 2025': { Production: 56.0, HQ: 47.8, Remote: 58.0, All: 53.2 },
+    'Aug 2025': { Production: 43.5, HQ: 39.8, Remote: 50.5, All: 43.7 },
+    'Sep 2025': { Production: 55.0, HQ: 57.0, Remote: 72.8, All: 60.0 },
+    'Feb 2026': { Production: 69.8, HQ: 79.5, Remote: 64.5, All: 71.9 },
+    'Apr 2026': { Production: 72.2, HQ: 65.0, Remote: 49.0, All: 63.0 },
+    // All recomputed 2026-07-20 (80.6, was 81.1) after Jul 2026 Participation Metrics correction
+    // swapped Production/HQ response-count weights (Production 13, was 16; HQ 16, was 13; Remote
+    // 11, unchanged) — Production/HQ/Remote's own Normalized Scores are unaffected, only the
+    // response-count-weighted All figure changes: (84.0*13 + 77.8*16 + 80.8*11) / 40 = 80.64.
+    'Jul 2026': { Production: 84.0, HQ: 77.8, Remote: 80.8, All: 80.6 },
+  },
+  'Trust': {
+    'Feb 2026': { Production: 73.8, HQ: 69.5, Remote: 77.8, All: 73.3 },
+    'Mar 2026': { Production: 63.7, HQ: 64.8, Remote: 55.5, All: 61.7 },
+  },
+};
+// Looks up the Normalized Score fallback for one cat/Experience/period, or null if none exists
+// (either because this cat isn't Leadership Connection/Trust, or this exact period isn't one of
+// the listed continuous-scale cells — e.g. a period with no mapped question at all, like
+// Leadership Connection in May 2025, correctly returns null here too — there is nothing to show).
+function normalizedScoreFallback(cat, exp, periodIdx) {
+  const byPeriod = NORMALIZED_SCORE_LC_TRUST[cat];
+  if (!byPeriod) return null;
+  const row = byPeriod[PERIODS_FULL[periodIdx]];
+  if (!row) return null;
+  const v = row[exp];
+  return (v === undefined) ? null : v;
+}
+// The single function the Category Scores Over Time chart uses to decide what to plot/label at a
+// given point: real Favorability when present; otherwise the Normalized Score fallback (flagged
+// isFallback:true) when one exists for this exact cell; otherwise null (genuinely no data — a true
+// gap in the line, unchanged from how every other missing point already renders).
+function favorabilityDisplayValue(cat, exp, periodIdx, realValue) {
+  if (realValue !== null && realValue !== undefined) return { value: realValue, isFallback: false };
+  const fb = normalizedScoreFallback(cat, exp, periodIdx);
+  return (fb === null) ? { value: null, isFallback: false } : { value: fb, isFallback: true };
+}
 // Keyed the same way as SCORES_BY_EXPERIENCE so currentScores() (see TREND_CHART_METRIC below)
 // can point at either one interchangeably. An 'All' key is appended further below — see the
 // "'ALL' EXPERIENCE" section below.
@@ -990,16 +1088,16 @@ const FAVORABILITY_BY_EXPERIENCE = {
 // key is appended further below — see the "'ALL' EXPERIENCE" section below.
 const CLARITY_FAVORABILITY_BY_EXPERIENCE = {
   'Production': {
-    role:   [null,null,null,null,null,null,null,76.5,null,60.0,90.9,null,66.7,64.3],
-    growth: [null,null,null,null,null,null,null,52.9,46.7,null,72.7,45.5,58.3,64.3],
+    role:   [null,null,null,null,null,null,null,76.5,null,60.0,90.9,null,66.7,64.3,68.8],
+    growth: [null,null,null,null,null,null,null,52.9,46.7,null,72.7,45.5,58.3,64.3,31.2],
   },
   'HQ': {
-    role:   [null,null,null,null,null,null,null,78.6,null,60.0,75.0,null,76.9,75.0],
-    growth: [null,null,null,null,null,null,null,28.6,40.0,null,33.3,66.7,61.5,43.8],
+    role:   [null,null,null,null,null,null,null,78.6,null,60.0,75.0,null,76.9,75.0,69.2],
+    growth: [null,null,null,null,null,null,null,28.6,40.0,null,33.3,66.7,61.5,43.8,76.9],
   },
   'Remote': {
-    role:   [null,null,null,null,null,null,null,72.7,null,50.0,70.0,null,50.0,70.0],
-    growth: [null,null,null,null,null,null,null,36.4,50.0,null,30.0,30.0,20.0,30.0],
+    role:   [null,null,null,null,null,null,null,72.7,null,50.0,70.0,null,50.0,70.0,54.5],
+    growth: [null,null,null,null,null,null,null,36.4,50.0,null,30.0,30.0,20.0,30.0,27.3],
   },
 };
 
@@ -1116,34 +1214,15 @@ const QI_LATEST = PERIODS_FULL[PERIODS_FULL.length - 1];
 const QI_PREV   = PERIODS_FULL[PERIODS_FULL.length - 2];
 
 const QUESTION_DATA = [
-  { q: 'I can take initiative on new ideas without waiting to be asked.', cats: ['Autonomy'], n: 14, avg5: 4.29, favPct: 92.9, fav: 13, neu: 1, unf: 0, scale10: false, avg: 4.29 },
-  { q: 'I am trusted to choose how I approach my work, not just what to do.', cats: ['Autonomy'], n: 14, avg5: 4.07, favPct: 85.7, fav: 12, neu: 0, unf: 2, scale10: false, avg: 4.07 },
-  { q: 'I have the clarity I need to make confident decisions under pressure.', cats: ['Trust'], n: 14, avg5: 4.21, favPct: 85.7, fav: 12, neu: 1, unf: 1, scale10: false, avg: 4.21 },
-  { q: 'I can admit a mistake here without fear of blame.', cats: ['Trust'], n: 14, avg5: 4.0, favPct: 85.7, fav: 12, neu: 1, unf: 1, scale10: false, avg: 4.0 },
-  { q: 'I can reprioritize my work when things change without escalating.', cats: ['Autonomy'], n: 14, avg5: 4.21, favPct: 78.6, fav: 11, neu: 3, unf: 0, scale10: false, avg: 4.21 },
-  { q: 'I have the tools and resources I need to do my job well.', cats: ['Competency'], n: 14, avg5: 3.86, favPct: 78.6, fav: 11, neu: 3, unf: 0, scale10: false, avg: 3.86 },
-  { q: 'I can count on teammates to follow through on commitments.', cats: ['Relatedness'], n: 14, avg5: 3.64, favPct: 78.6, fav: 11, neu: 1, unf: 2, scale10: false, avg: 3.64 },
-  { q: 'I feel comfortable telling my manager when I\'m struggling.', cats: ['Leadership Connection'], n: 14, avg5: 3.86, favPct: 71.4, fav: 10, neu: 2, unf: 2, scale10: false, avg: 3.86 },
-  { q: 'When expectations change, my manager communicates this to me clearly.', cats: ['Leadership Connection'], n: 14, avg5: 3.71, favPct: 71.4, fav: 10, neu: 1, unf: 3, scale10: false, avg: 3.71 },
-  { q: 'I can ask for help without feeling like a burden.', cats: ['Trust'], n: 14, avg5: 3.86, favPct: 71.4, fav: 10, neu: 4, unf: 0, scale10: false, avg: 3.86 },
-  { q: 'How valued does Gantri make you feel about the work you do?', cats: ['Feeling Valued'], n: 14, avg5: 3.70, favPct: 67.4, fav: 0, neu: 0, unf: 0, scale10: true, avg: 7.07 },
-  { q: 'I know where to turn when I hit a roadblock.', cats: ['Autonomy'], n: 14, avg5: 3.79, favPct: 64.3, fav: 9, neu: 3, unf: 2, scale10: false, avg: 3.79 },
-  { q: 'I know what success looks like in my current role.', cats: ['Competency', 'Clarity to Succeed'], n: 14, avg5: 3.57, favPct: 64.3, fav: 9, neu: 2, unf: 3, scale10: false, avg: 3.57 },
-  { q: 'I understand what it takes to reach the next level.', cats: ['Competency', 'Clarity to Succeed'], n: 14, avg5: 3.64, favPct: 64.3, fav: 9, neu: 3, unf: 2, scale10: false, avg: 3.64 },
-  { q: 'My team actively steps up when I need help.', cats: ['Relatedness'], n: 14, avg5: 3.57, favPct: 64.3, fav: 9, neu: 4, unf: 1, scale10: false, avg: 3.57 },
-  { q: 'I have opportunities to ask questions and get clarity about company changes.', cats: ['Leadership Connection'], n: 14, avg5: 3.57, favPct: 64.3, fav: 9, neu: 3, unf: 2, scale10: false, avg: 3.57 },
-  { q: 'The demands of my role feel challenging but achievable.', cats: ['Trust'], n: 14, avg5: 3.79, favPct: 64.3, fav: 9, neu: 4, unf: 1, scale10: false, avg: 3.79 },
-  { q: 'People outside my team are easy to approach when I have questions or need assistance.', cats: ['Relatedness'], n: 14, avg5: 3.71, favPct: 57.1, fav: 8, neu: 5, unf: 1, scale10: false, avg: 3.71 },
-  { q: 'I understand the reasoning behind decisions that affect my work.', cats: ['Leadership Connection'], n: 14, avg5: 3.57, favPct: 57.1, fav: 8, neu: 4, unf: 2, scale10: false, avg: 3.57 },
-  { q: 'My manager gives me feedback that is specific and actionable.', cats: ['Leadership Connection'], n: 14, avg5: 3.5, favPct: 57.1, fav: 8, neu: 4, unf: 2, scale10: false, avg: 3.5 },
-  { q: 'My manager advocates for me and my work.', cats: ['Leadership Connection'], n: 14, avg5: 3.64, favPct: 57.1, fav: 8, neu: 5, unf: 1, scale10: false, avg: 3.64 },
-  { q: 'I feel safe voicing disagreement with leadership or senior peers.', cats: ['Trust'], n: 14, avg5: 3.64, favPct: 57.1, fav: 8, neu: 6, unf: 0, scale10: false, avg: 3.64 },
-  { q: 'I receive feedback specific enough to change how I work.', cats: ['Competency'], n: 14, avg5: 3.43, favPct: 50.0, fav: 7, neu: 6, unf: 1, scale10: false, avg: 3.43 },
-  { q: 'This last year, I have had opportunities at work to learn and grow.', cats: ['Competency'], n: 14, avg5: 3.0, favPct: 42.9, fav: 6, neu: 3, unf: 5, scale10: false, avg: 3.0 },
-  { q: 'I feel included in important discussions or decisions that affect other parts of the company.', cats: ['Relatedness'], n: 14, avg5: 3.07, favPct: 42.9, fav: 6, neu: 4, unf: 4, scale10: false, avg: 3.07 },
-  { q: 'I can push back on a direction I disagree with.', cats: ['Trust'], n: 14, avg5: 3.5, favPct: 42.9, fav: 6, neu: 7, unf: 1, scale10: false, avg: 3.5 },
-  { q: 'My team actively seeks each other’s input before making decisions that affect us all.', cats: ['Relatedness'], n: 14, avg5: 3.21, favPct: 35.7, fav: 5, neu: 7, unf: 2, scale10: false, avg: 3.21 },
-  { q: 'I have access to learning opportunities that are relevant to my role.', cats: ['Competency'], n: 14, avg5: 3.29, favPct: 28.6, fav: 4, neu: 9, unf: 1, scale10: false, avg: 3.29 },
+  { q: 'If a teammate needed help outside my scope, I\'d want to step in.', cats: ['Relatedness'], n: 16, avg5: 4.38, favPct: 87.5, fav: 14, neu: 2, unf: 0, scale10: false, avg: 4.38 },
+  { q: 'When my manager gives me difficult feedback, it feels constructive rather than discouraging.', cats: ['Leadership Connection'], n: 16, avg5: 4.36, favPct: 84.0, fav: 0, neu: 0, unf: 0, scale10: true, avg: 8.56 },
+  { q: 'I\'m trusted to handle problems as they arise.', cats: ['Autonomy'], n: 16, avg5: 3.88, favPct: 81.2, fav: 13, neu: 1, unf: 2, scale10: false, avg: 3.88 },
+  { q: 'I have the freedom to choose how I complete my work.', cats: ['Autonomy'], n: 16, avg5: 3.88, favPct: 68.8, fav: 11, neu: 4, unf: 1, scale10: false, avg: 3.88 },
+  { q: 'I know exactly what success looks like in my current role.', cats: ['Competency', 'Clarity to Succeed'], n: 16, avg5: 3.69, favPct: 68.8, fav: 11, neu: 3, unf: 2, scale10: false, avg: 3.69 },
+  { q: 'I feel like we win and lose together as a team.', cats: ['Relatedness'], n: 16, avg5: 3.56, favPct: 62.5, fav: 10, neu: 3, unf: 3, scale10: false, avg: 3.56 },
+  { q: 'When something goes wrong, we focus on finding the cause, not assigning blame.', cats: ['Trust'], n: 16, avg5: 3.38, favPct: 62.5, fav: 10, neu: 2, unf: 4, scale10: false, avg: 3.38 },
+  { q: 'How valued does Gantri make you feel about the work you do?', cats: ['Feeling Valued'], n: 16, avg5: 3.47, favPct: 61.8, fav: 0, neu: 0, unf: 0, scale10: true, avg: 6.56 },
+  { q: 'I understand what I need to do to reach the next level.', cats: ['Competency', 'Clarity to Succeed'], n: 16, avg5: 3.38, favPct: 31.2, fav: 5, neu: 9, unf: 2, scale10: false, avg: 3.38 },
 ];
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -1152,16 +1231,19 @@ const QUESTION_DATA = [
 // above is untouched and still drives the separate Question Insights tab exactly as before, always
 // Production-only regardless of the Category Scores chart's currentExperience.
 //
-// Same latest completed survey (May 2026 Engagement Survey) as QUESTION_DATA, same 28 mapped
-// questions/cats, recomputed per Experience straight from that survey's raw per-Group Analytics
-// exports (Production/HQIP/R — May 2026 Engagement Survey Analytics files): each question's
-// Number of Answers and Favorable/Neutral/Unfavorable counts summed across every Group row for
-// that Experience, avg5 as the Group-size-weighted mean of Average Value (validated to reproduce
-// QUESTION_DATA's existing Production numbers exactly this way). The one continuous 1–10-scale
-// question (Feeling Valued) has no discrete Favorable/Neutral/Unfavorable counts in the source
-// export (see the Favorability Metrics "Known gaps" note above) — its favPct is instead the same
-// linear rescale already used for feelingValuedRaw10 (favPct = (avg10−1)/9×100), not a bucketed
-// share; fav/neu/unf stay 0 for that row in every Experience, matching Production's existing entry.
+// Same latest completed survey (July 2026 Pulse Survey) as QUESTION_DATA, same 9 mapped
+// questions/cats, recomputed per Experience straight from that survey's raw Analytics exports
+// (Production/HQIP/R — July 2026 Pulse Survey Analytics files, each a single consolidated
+// "All participants" row per question rather than the older per-Group breakdown — see the July
+// 2026 refresh note): each question's Number of Answers and Favorable/Neutral/Unfavorable counts
+// read directly per Experience, avg5 via the standard normalization formula (validated to
+// reproduce QUESTION_DATA's existing Production numbers exactly this way). Two questions this
+// period have no discrete Favorable/Neutral/Unfavorable counts in the source export because
+// they're on the continuous 1–10 scale (Feeling Valued, always; and, this period only, the new
+// Leadership Connection question — see the Favorability Metrics "Known gaps" note above) — their
+// favPct is instead the same linear rescale already used for feelingValuedRaw10
+// (favPct = (avg10−1)/9×100), not a bucketed share; fav/neu/unf stay 0 for those rows in every
+// Experience.
 //
 // 'All' pools raw Number of Answers and Favorable/Neutral/Unfavorable counts across all three
 // Experience files per question before computing avg5/favPct — never an average of the three
@@ -1170,94 +1252,37 @@ const QUESTION_DATA = [
 const QUESTION_DATA_BY_EXPERIENCE = {
   Production: QUESTION_DATA,
   HQ: [
-  { q: 'I can take initiative on new ideas without waiting to be asked.', cats: ['Autonomy'], n: 16, avg5: 3.88, favPct: 68.8, fav: 11, neu: 3, unf: 2, scale10: false, avg: 3.88 },
-  { q: 'I am trusted to choose how I approach my work, not just what to do.', cats: ['Autonomy'], n: 16, avg5: 4.0, favPct: 75.0, fav: 12, neu: 4, unf: 0, scale10: false, avg: 4.0 },
-  { q: 'I have the clarity I need to make confident decisions under pressure.', cats: ['Trust'], n: 16, avg5: 3.81, favPct: 75.0, fav: 12, neu: 3, unf: 1, scale10: false, avg: 3.81 },
-  { q: 'I can admit a mistake here without fear of blame.', cats: ['Trust'], n: 16, avg5: 3.75, favPct: 75.0, fav: 12, neu: 2, unf: 2, scale10: false, avg: 3.75 },
-  { q: 'I can reprioritize my work when things change without escalating.', cats: ['Autonomy'], n: 16, avg5: 3.94, favPct: 75.0, fav: 12, neu: 4, unf: 0, scale10: false, avg: 3.94 },
-  { q: 'I have the tools and resources I need to do my job well.', cats: ['Competency'], n: 16, avg5: 3.69, favPct: 68.8, fav: 11, neu: 3, unf: 2, scale10: false, avg: 3.69 },
-  { q: 'I can count on teammates to follow through on commitments.', cats: ['Relatedness'], n: 16, avg5: 4.31, favPct: 93.8, fav: 15, neu: 0, unf: 1, scale10: false, avg: 4.31 },
-  { q: 'I feel comfortable telling my manager when I\'m struggling.', cats: ['Leadership Connection'], n: 16, avg5: 4.07, favPct: 68.8, fav: 11, neu: 4, unf: 1, scale10: false, avg: 4.07 },
-  { q: 'When expectations change, my manager communicates this to me clearly.', cats: ['Leadership Connection'], n: 16, avg5: 3.94, favPct: 81.2, fav: 13, neu: 1, unf: 2, scale10: false, avg: 3.94 },
-  { q: 'I can ask for help without feeling like a burden.', cats: ['Trust'], n: 16, avg5: 3.81, favPct: 75.0, fav: 12, neu: 3, unf: 1, scale10: false, avg: 3.81 },
-  { q: 'How valued does Gantri make you feel about the work you do?', cats: ['Feeling Valued'], n: 16, avg5: 3.81, favPct: 70.2, fav: 0, neu: 0, unf: 0, scale10: true, avg: 7.32 },
-  { q: 'I know where to turn when I hit a roadblock.', cats: ['Autonomy'], n: 16, avg5: 4.0, favPct: 81.2, fav: 13, neu: 3, unf: 0, scale10: false, avg: 4.0 },
-  { q: 'I know what success looks like in my current role.', cats: ['Competency', 'Clarity to Succeed'], n: 16, avg5: 3.69, favPct: 75.0, fav: 12, neu: 2, unf: 2, scale10: false, avg: 3.69 },
-  { q: 'I understand what it takes to reach the next level.', cats: ['Competency', 'Clarity to Succeed'], n: 16, avg5: 3.13, favPct: 43.8, fav: 7, neu: 3, unf: 6, scale10: false, avg: 3.13 },
-  { q: 'My team actively steps up when I need help.', cats: ['Relatedness'], n: 16, avg5: 4.5, favPct: 93.8, fav: 15, neu: 1, unf: 0, scale10: false, avg: 4.5 },
-  { q: 'I have opportunities to ask questions and get clarity about company changes.', cats: ['Leadership Connection'], n: 16, avg5: 3.69, favPct: 68.8, fav: 11, neu: 3, unf: 2, scale10: false, avg: 3.69 },
-  { q: 'The demands of my role feel challenging but achievable.', cats: ['Trust'], n: 16, avg5: 3.69, favPct: 62.5, fav: 10, neu: 4, unf: 2, scale10: false, avg: 3.69 },
-  { q: 'People outside my team are easy to approach when I have questions or need assistance.', cats: ['Relatedness'], n: 16, avg5: 4.07, favPct: 81.2, fav: 13, neu: 2, unf: 1, scale10: false, avg: 4.07 },
-  { q: 'I understand the reasoning behind decisions that affect my work.', cats: ['Leadership Connection'], n: 16, avg5: 3.88, favPct: 75.0, fav: 12, neu: 3, unf: 1, scale10: false, avg: 3.88 },
-  { q: 'My manager gives me feedback that is specific and actionable.', cats: ['Leadership Connection'], n: 16, avg5: 4.32, favPct: 87.5, fav: 14, neu: 1, unf: 1, scale10: false, avg: 4.32 },
-  { q: 'My manager advocates for me and my work.', cats: ['Leadership Connection'], n: 16, avg5: 4.32, favPct: 81.2, fav: 13, neu: 3, unf: 0, scale10: false, avg: 4.32 },
-  { q: 'I feel safe voicing disagreement with leadership or senior peers.', cats: ['Trust'], n: 16, avg5: 3.13, favPct: 43.8, fav: 7, neu: 4, unf: 5, scale10: false, avg: 3.13 },
-  { q: 'I receive feedback specific enough to change how I work.', cats: ['Competency'], n: 16, avg5: 3.81, favPct: 75.0, fav: 12, neu: 3, unf: 1, scale10: false, avg: 3.81 },
-  { q: 'This last year, I have had opportunities at work to learn and grow.', cats: ['Competency'], n: 16, avg5: 3.94, favPct: 68.8, fav: 11, neu: 4, unf: 1, scale10: false, avg: 3.94 },
-  { q: 'I feel included in important discussions or decisions that affect other parts of the company.', cats: ['Relatedness'], n: 16, avg5: 3.69, favPct: 62.5, fav: 10, neu: 4, unf: 2, scale10: false, avg: 3.69 },
-  { q: 'I can push back on a direction I disagree with.', cats: ['Trust'], n: 16, avg5: 3.31, favPct: 50.0, fav: 8, neu: 5, unf: 3, scale10: false, avg: 3.31 },
-  { q: 'My team actively seeks each other’s input before making decisions that affect us all.', cats: ['Relatedness'], n: 16, avg5: 4.25, favPct: 87.5, fav: 14, neu: 1, unf: 1, scale10: false, avg: 4.25 },
-  { q: 'I have access to learning opportunities that are relevant to my role.', cats: ['Competency'], n: 16, avg5: 3.25, favPct: 43.8, fav: 7, neu: 6, unf: 3, scale10: false, avg: 3.25 },
+  { q: 'If a teammate needed help outside my scope, I\'d want to step in.', cats: ['Relatedness'], n: 13, avg5: 4.31, favPct: 92.3, fav: 12, neu: 0, unf: 1, scale10: false, avg: 4.31 },
+  { q: 'I\'m trusted to handle problems as they arise.', cats: ['Autonomy'], n: 13, avg5: 4.0, favPct: 84.6, fav: 11, neu: 1, unf: 1, scale10: false, avg: 4.0 },
+  { q: 'When my manager gives me difficult feedback, it feels constructive rather than discouraging.', cats: ['Leadership Connection'], n: 13, avg5: 4.11, favPct: 77.8, fav: 0, neu: 0, unf: 0, scale10: true, avg: 8.0 },
+  { q: 'I understand what I need to do to reach the next level.', cats: ['Competency', 'Clarity to Succeed'], n: 13, avg5: 3.62, favPct: 76.9, fav: 10, neu: 0, unf: 3, scale10: false, avg: 3.62 },
+  { q: 'I know exactly what success looks like in my current role.', cats: ['Competency', 'Clarity to Succeed'], n: 13, avg5: 3.69, favPct: 69.2, fav: 9, neu: 3, unf: 1, scale10: false, avg: 3.69 },
+  { q: 'How valued does Gantri make you feel about the work you do?', cats: ['Feeling Valued'], n: 13, avg5: 3.67, favPct: 66.7, fav: 0, neu: 0, unf: 0, scale10: true, avg: 7.0 },
+  { q: 'I have the freedom to choose how I complete my work.', cats: ['Autonomy'], n: 13, avg5: 3.54, favPct: 53.8, fav: 7, neu: 4, unf: 2, scale10: false, avg: 3.54 },
+  { q: 'When something goes wrong, we focus on finding the cause, not assigning blame.', cats: ['Trust'], n: 13, avg5: 3.31, favPct: 53.8, fav: 7, neu: 3, unf: 3, scale10: false, avg: 3.31 },
+  { q: 'I feel like we win and lose together as a team.', cats: ['Relatedness'], n: 13, avg5: 3.08, favPct: 30.8, fav: 4, neu: 4, unf: 5, scale10: false, avg: 3.08 },
   ],
   Remote: [
-  { q: 'I can take initiative on new ideas without waiting to be asked.', cats: ['Autonomy'], n: 10, avg5: 4.1, favPct: 80.0, fav: 8, neu: 0, unf: 2, scale10: false, avg: 4.1 },
-  { q: 'I am trusted to choose how I approach my work, not just what to do.', cats: ['Autonomy'], n: 10, avg5: 4.1, favPct: 70.0, fav: 7, neu: 1, unf: 2, scale10: false, avg: 4.1 },
-  { q: 'I have the clarity I need to make confident decisions under pressure.', cats: ['Trust'], n: 10, avg5: 3.8, favPct: 70.0, fav: 7, neu: 1, unf: 2, scale10: false, avg: 3.8 },
-  { q: 'I can admit a mistake here without fear of blame.', cats: ['Trust'], n: 10, avg5: 3.3, favPct: 40.0, fav: 4, neu: 3, unf: 3, scale10: false, avg: 3.3 },
-  { q: 'I can reprioritize my work when things change without escalating.', cats: ['Autonomy'], n: 10, avg5: 3.9, favPct: 80.0, fav: 8, neu: 0, unf: 2, scale10: false, avg: 3.9 },
-  { q: 'I have the tools and resources I need to do my job well.', cats: ['Competency'], n: 10, avg5: 3.8, favPct: 70.0, fav: 7, neu: 1, unf: 2, scale10: false, avg: 3.8 },
-  { q: 'I can count on teammates to follow through on commitments.', cats: ['Relatedness'], n: 10, avg5: 4.3, favPct: 90.0, fav: 9, neu: 0, unf: 1, scale10: false, avg: 4.3 },
-  { q: 'I feel comfortable telling my manager when I\'m struggling.', cats: ['Leadership Connection'], n: 10, avg5: 3.9, favPct: 70.0, fav: 7, neu: 2, unf: 1, scale10: false, avg: 3.9 },
-  { q: 'When expectations change, my manager communicates this to me clearly.', cats: ['Leadership Connection'], n: 10, avg5: 3.7, favPct: 60.0, fav: 6, neu: 4, unf: 0, scale10: false, avg: 3.7 },
-  { q: 'I can ask for help without feeling like a burden.', cats: ['Trust'], n: 10, avg5: 4.0, favPct: 90.0, fav: 9, neu: 0, unf: 1, scale10: false, avg: 4.0 },
-  { q: 'How valued does Gantri make you feel about the work you do?', cats: ['Feeling Valued'], n: 10, avg5: 3.4, favPct: 60.0, fav: 0, neu: 0, unf: 0, scale10: true, avg: 6.4 },
-  { q: 'I know where to turn when I hit a roadblock.', cats: ['Autonomy'], n: 10, avg5: 4.1, favPct: 80.0, fav: 8, neu: 1, unf: 1, scale10: false, avg: 4.1 },
-  { q: 'I know what success looks like in my current role.', cats: ['Competency', 'Clarity to Succeed'], n: 10, avg5: 3.8, favPct: 70.0, fav: 7, neu: 1, unf: 2, scale10: false, avg: 3.8 },
-  { q: 'I understand what it takes to reach the next level.', cats: ['Competency', 'Clarity to Succeed'], n: 10, avg5: 2.6, favPct: 30.0, fav: 3, neu: 2, unf: 5, scale10: false, avg: 2.6 },
-  { q: 'My team actively steps up when I need help.', cats: ['Relatedness'], n: 10, avg5: 4.2, favPct: 80.0, fav: 8, neu: 1, unf: 1, scale10: false, avg: 4.2 },
-  { q: 'I have opportunities to ask questions and get clarity about company changes.', cats: ['Leadership Connection'], n: 10, avg5: 3.8, favPct: 70.0, fav: 7, neu: 1, unf: 2, scale10: false, avg: 3.8 },
-  { q: 'The demands of my role feel challenging but achievable.', cats: ['Trust'], n: 10, avg5: 4.3, favPct: 90.0, fav: 9, neu: 1, unf: 0, scale10: false, avg: 4.3 },
-  { q: 'People outside my team are easy to approach when I have questions or need assistance.', cats: ['Relatedness'], n: 10, avg5: 4.0, favPct: 70.0, fav: 7, neu: 3, unf: 0, scale10: false, avg: 4.0 },
-  { q: 'I understand the reasoning behind decisions that affect my work.', cats: ['Leadership Connection'], n: 10, avg5: 3.4, favPct: 40.0, fav: 4, neu: 4, unf: 2, scale10: false, avg: 3.4 },
-  { q: 'My manager gives me feedback that is specific and actionable.', cats: ['Leadership Connection'], n: 10, avg5: 3.5, favPct: 50.0, fav: 5, neu: 3, unf: 2, scale10: false, avg: 3.5 },
-  { q: 'My manager advocates for me and my work.', cats: ['Leadership Connection'], n: 10, avg5: 3.9, favPct: 70.0, fav: 7, neu: 2, unf: 1, scale10: false, avg: 3.9 },
-  { q: 'I feel safe voicing disagreement with leadership or senior peers.', cats: ['Trust'], n: 10, avg5: 3.3, favPct: 50.0, fav: 5, neu: 1, unf: 4, scale10: false, avg: 3.3 },
-  { q: 'I receive feedback specific enough to change how I work.', cats: ['Competency'], n: 10, avg5: 3.2, favPct: 40.0, fav: 4, neu: 3, unf: 3, scale10: false, avg: 3.2 },
-  { q: 'This last year, I have had opportunities at work to learn and grow.', cats: ['Competency'], n: 10, avg5: 3.5, favPct: 60.0, fav: 6, neu: 1, unf: 3, scale10: false, avg: 3.5 },
-  { q: 'I feel included in important discussions or decisions that affect other parts of the company.', cats: ['Relatedness'], n: 10, avg5: 3.1, favPct: 40.0, fav: 4, neu: 3, unf: 3, scale10: false, avg: 3.1 },
-  { q: 'I can push back on a direction I disagree with.', cats: ['Trust'], n: 10, avg5: 3.4, favPct: 60.0, fav: 6, neu: 0, unf: 4, scale10: false, avg: 3.4 },
-  { q: 'My team actively seeks each other’s input before making decisions that affect us all.', cats: ['Relatedness'], n: 10, avg5: 3.9, favPct: 80.0, fav: 8, neu: 1, unf: 1, scale10: false, avg: 3.9 },
-  { q: 'I have access to learning opportunities that are relevant to my role.', cats: ['Competency'], n: 10, avg5: 3.6, favPct: 50.0, fav: 5, neu: 3, unf: 2, scale10: false, avg: 3.6 },
+  { q: 'If a teammate needed help outside my scope, I\'d want to step in.', cats: ['Relatedness'], n: 11, avg5: 4.73, favPct: 100.0, fav: 11, neu: 0, unf: 0, scale10: false, avg: 4.73 },
+  { q: 'When my manager gives me difficult feedback, it feels constructive rather than discouraging.', cats: ['Leadership Connection'], n: 11, avg5: 4.23, favPct: 80.8, fav: 0, neu: 0, unf: 0, scale10: true, avg: 8.27 },
+  { q: 'I have the freedom to choose how I complete my work.', cats: ['Autonomy'], n: 11, avg5: 4.0, favPct: 72.7, fav: 8, neu: 1, unf: 2, scale10: false, avg: 4.0 },
+  { q: 'I\'m trusted to handle problems as they arise.', cats: ['Autonomy'], n: 11, avg5: 3.82, favPct: 72.7, fav: 8, neu: 1, unf: 2, scale10: false, avg: 3.82 },
+  { q: 'How valued does Gantri make you feel about the work you do?', cats: ['Feeling Valued'], n: 11, avg5: 3.51, favPct: 62.7, fav: 0, neu: 0, unf: 0, scale10: true, avg: 6.64 },
+  { q: 'I feel like we win and lose together as a team.', cats: ['Relatedness'], n: 11, avg5: 3.45, favPct: 54.5, fav: 6, neu: 3, unf: 2, scale10: false, avg: 3.45 },
+  { q: 'I know exactly what success looks like in my current role.', cats: ['Competency', 'Clarity to Succeed'], n: 11, avg5: 3.45, favPct: 54.5, fav: 6, neu: 2, unf: 3, scale10: false, avg: 3.45 },
+  { q: 'I understand what I need to do to reach the next level.', cats: ['Competency', 'Clarity to Succeed'], n: 11, avg5: 2.36, favPct: 27.3, fav: 3, neu: 2, unf: 6, scale10: false, avg: 2.36 },
+  { q: 'When something goes wrong, we focus on finding the cause, not assigning blame.', cats: ['Trust'], n: 11, avg5: 2.45, favPct: 27.3, fav: 3, neu: 1, unf: 7, scale10: false, avg: 2.45 },
   ],
   All: [
-  { q: 'I can take initiative on new ideas without waiting to be asked.', cats: ['Autonomy'], n: 40, avg5: 4.08, favPct: 80.0, fav: 32, neu: 4, unf: 4, scale10: false, avg: 4.08 },
-  { q: 'I am trusted to choose how I approach my work, not just what to do.', cats: ['Autonomy'], n: 40, avg5: 4.05, favPct: 77.5, fav: 31, neu: 5, unf: 4, scale10: false, avg: 4.05 },
-  { q: 'I have the clarity I need to make confident decisions under pressure.', cats: ['Trust'], n: 40, avg5: 3.95, favPct: 77.5, fav: 31, neu: 5, unf: 4, scale10: false, avg: 3.95 },
-  { q: 'I can admit a mistake here without fear of blame.', cats: ['Trust'], n: 40, avg5: 3.73, favPct: 70.0, fav: 28, neu: 6, unf: 6, scale10: false, avg: 3.73 },
-  { q: 'I can reprioritize my work when things change without escalating.', cats: ['Autonomy'], n: 40, avg5: 4.03, favPct: 77.5, fav: 31, neu: 7, unf: 2, scale10: false, avg: 4.03 },
-  { q: 'I have the tools and resources I need to do my job well.', cats: ['Competency'], n: 40, avg5: 3.78, favPct: 72.5, fav: 29, neu: 7, unf: 4, scale10: false, avg: 3.78 },
-  { q: 'I can count on teammates to follow through on commitments.', cats: ['Relatedness'], n: 40, avg5: 4.08, favPct: 87.5, fav: 35, neu: 1, unf: 4, scale10: false, avg: 4.08 },
-  { q: 'I feel comfortable telling my manager when I\'m struggling.', cats: ['Leadership Connection'], n: 40, avg5: 3.95, favPct: 70.0, fav: 28, neu: 8, unf: 4, scale10: false, avg: 3.95 },
-  { q: 'When expectations change, my manager communicates this to me clearly.', cats: ['Leadership Connection'], n: 40, avg5: 3.8, favPct: 72.5, fav: 29, neu: 6, unf: 5, scale10: false, avg: 3.8 },
-  { q: 'I can ask for help without feeling like a burden.', cats: ['Trust'], n: 40, avg5: 3.88, favPct: 77.5, fav: 31, neu: 7, unf: 2, scale10: false, avg: 3.88 },
-  { q: 'How valued does Gantri make you feel about the work you do?', cats: ['Feeling Valued'], n: 40, avg5: 3.67, favPct: 66.7, fav: 0, neu: 0, unf: 0, scale10: true, avg: 7.0 },
-  { q: 'I know where to turn when I hit a roadblock.', cats: ['Autonomy'], n: 40, avg5: 3.95, favPct: 75.0, fav: 30, neu: 7, unf: 3, scale10: false, avg: 3.95 },
-  { q: 'I know what success looks like in my current role.', cats: ['Competency', 'Clarity to Succeed'], n: 40, avg5: 3.67, favPct: 70.0, fav: 28, neu: 5, unf: 7, scale10: false, avg: 3.67 },
-  { q: 'I understand what it takes to reach the next level.', cats: ['Competency', 'Clarity to Succeed'], n: 40, avg5: 3.18, favPct: 47.5, fav: 19, neu: 8, unf: 13, scale10: false, avg: 3.18 },
-  { q: 'My team actively steps up when I need help.', cats: ['Relatedness'], n: 40, avg5: 4.1, favPct: 80.0, fav: 32, neu: 6, unf: 2, scale10: false, avg: 4.1 },
-  { q: 'I have opportunities to ask questions and get clarity about company changes.', cats: ['Leadership Connection'], n: 40, avg5: 3.68, favPct: 67.5, fav: 27, neu: 7, unf: 6, scale10: false, avg: 3.68 },
-  { q: 'The demands of my role feel challenging but achievable.', cats: ['Trust'], n: 40, avg5: 3.88, favPct: 70.0, fav: 28, neu: 9, unf: 3, scale10: false, avg: 3.88 },
-  { q: 'People outside my team are easy to approach when I have questions or need assistance.', cats: ['Relatedness'], n: 40, avg5: 3.93, favPct: 70.0, fav: 28, neu: 10, unf: 2, scale10: false, avg: 3.93 },
-  { q: 'I understand the reasoning behind decisions that affect my work.', cats: ['Leadership Connection'], n: 40, avg5: 3.65, favPct: 60.0, fav: 24, neu: 11, unf: 5, scale10: false, avg: 3.65 },
-  { q: 'My manager gives me feedback that is specific and actionable.', cats: ['Leadership Connection'], n: 40, avg5: 3.83, favPct: 67.5, fav: 27, neu: 8, unf: 5, scale10: false, avg: 3.83 },
-  { q: 'My manager advocates for me and my work.', cats: ['Leadership Connection'], n: 40, avg5: 3.98, favPct: 70.0, fav: 28, neu: 10, unf: 2, scale10: false, avg: 3.98 },
-  { q: 'I feel safe voicing disagreement with leadership or senior peers.', cats: ['Trust'], n: 40, avg5: 3.35, favPct: 50.0, fav: 20, neu: 11, unf: 9, scale10: false, avg: 3.35 },
-  { q: 'I receive feedback specific enough to change how I work.', cats: ['Competency'], n: 40, avg5: 3.53, favPct: 57.5, fav: 23, neu: 12, unf: 5, scale10: false, avg: 3.53 },
-  { q: 'This last year, I have had opportunities at work to learn and grow.', cats: ['Competency'], n: 40, avg5: 3.5, favPct: 57.5, fav: 23, neu: 8, unf: 9, scale10: false, avg: 3.5 },
-  { q: 'I feel included in important discussions or decisions that affect other parts of the company.', cats: ['Relatedness'], n: 40, avg5: 3.33, favPct: 50.0, fav: 20, neu: 11, unf: 9, scale10: false, avg: 3.33 },
-  { q: 'I can push back on a direction I disagree with.', cats: ['Trust'], n: 40, avg5: 3.4, favPct: 50.0, fav: 20, neu: 12, unf: 8, scale10: false, avg: 3.4 },
-  { q: 'My team actively seeks each other’s input before making decisions that affect us all.', cats: ['Relatedness'], n: 40, avg5: 3.8, favPct: 67.5, fav: 27, neu: 9, unf: 4, scale10: false, avg: 3.8 },
-  { q: 'I have access to learning opportunities that are relevant to my role.', cats: ['Competency'], n: 40, avg5: 3.35, favPct: 40.0, fav: 16, neu: 18, unf: 6, scale10: false, avg: 3.35 },
+  { q: 'If a teammate needed help outside my scope, I\'d want to step in.', cats: ['Relatedness'], n: 40, avg5: 4.45, favPct: 92.5, fav: 37, neu: 2, unf: 1, scale10: false, avg: 4.45 },
+  { q: 'When my manager gives me difficult feedback, it feels constructive rather than discouraging.', cats: ['Leadership Connection'], n: 40, avg5: 4.24, favPct: 81.1, fav: 0, neu: 0, unf: 0, scale10: true, avg: 8.3 },
+  { q: 'I\'m trusted to handle problems as they arise.', cats: ['Autonomy'], n: 40, avg5: 3.9, favPct: 80.0, fav: 32, neu: 3, unf: 5, scale10: false, avg: 3.9 },
+  { q: 'I have the freedom to choose how I complete my work.', cats: ['Autonomy'], n: 40, avg5: 3.8, favPct: 65.0, fav: 26, neu: 9, unf: 5, scale10: false, avg: 3.8 },
+  { q: 'I know exactly what success looks like in my current role.', cats: ['Competency', 'Clarity to Succeed'], n: 40, avg5: 3.62, favPct: 65.0, fav: 26, neu: 8, unf: 6, scale10: false, avg: 3.62 },
+  { q: 'How valued does Gantri make you feel about the work you do?', cats: ['Feeling Valued'], n: 40, avg5: 3.55, favPct: 63.6, fav: 0, neu: 0, unf: 0, scale10: true, avg: 6.72 },
+  { q: 'I feel like we win and lose together as a team.', cats: ['Relatedness'], n: 40, avg5: 3.37, favPct: 50.0, fav: 20, neu: 10, unf: 10, scale10: false, avg: 3.37 },
+  { q: 'When something goes wrong, we focus on finding the cause, not assigning blame.', cats: ['Trust'], n: 40, avg5: 3.1, favPct: 50.0, fav: 20, neu: 6, unf: 14, scale10: false, avg: 3.1 },
+  { q: 'I understand what I need to do to reach the next level.', cats: ['Competency', 'Clarity to Succeed'], n: 40, avg5: 3.18, favPct: 45.0, fav: 18, neu: 11, unf: 11, scale10: false, avg: 3.18 },
   ],
 };
 // Fixed full-history window (index 0 through the latest completed survey) used exclusively by the
@@ -3287,9 +3312,10 @@ function renderActionCenterTwoCategory(catA, catB) {
 
 // ── Employee Feedback ────────────────────────────────────────────────────────
 // A fixed set of recurring organizational themes distilled from the three
-// most recent survey comment files (March, April, May 2026 — the fourth-
-// oldest comment file is intentionally excluded). This is NOT sentiment
-// analysis: it's a curated read of what actually recurs across many
+// most recent survey comment files (April, May, July 2026 — March 2026 rolled
+// out of the window this refresh; no June 2026 Comments file exists, matching
+// the no-June-survey gap already reflected in PERIODS_FULL). This is NOT
+// sentiment analysis: it's a curated read of what actually recurs across many
 // employees' open-ended answers, written the way an Ops Director would
 // summarize it in a meeting. To preserve anonymity, nothing here ever
 // surfaces a direct quote, a comment count, or anything employee-identifiable
@@ -3301,79 +3327,85 @@ const FEEDBACK_THEMES = {
   overall: [
     {
       title: 'Growth Path & Cross-Training Gap',
-      text: "Across all three months, the most consistent ask is for cross-training, rotation into another department, or a clearer path to the next level — several employees describe feeling capped in one role for years without a plan to grow beyond it. This lines up closely with Competency currently being the lowest-favorability category, and helps explain why.",
+      text: "Across all three months, the most consistent ask is for cross-training, rotation into another department, or a clearer path to promotion — one comment describes staying in the same department for years despite repeated requests to rotate, and another asks directly for “the opportunity to grow... not to be held down.” This lines up closely with Competency and Clarity to Succeed remaining the lowest-favorability categories, and helps explain why.",
       cats: ['Competency', 'Clarity to Succeed'],
     },
     {
-      title: 'Manager Visibility & Follow-Through',
-      text: "Employees repeatedly ask for managers and leads to spend more time directly on the floor, to be consulted before decisions are made, and to close the loop after a concern is raised — several describe voicing an issue without seeing it change anything afterward. This recurring pattern helps explain the recent decline in Leadership Connection and softer scores around being included in company-wide decisions.",
-      cats: ['Leadership Connection', 'Relatedness'],
+      title: 'Decisions Feel Imposed Rather Than Shared',
+      text: "A recurring pattern this quarter is a preference for consensus-based decisions over top-down ones — one comment asks that a supervisor decide “based on a consensus with the entire work team, rather than imposing decisions,” adding that imposed calls have produced lower-quality work, and a separate comment describes being told to stay within an assigned area even while seeing help needed elsewhere. This connects to Autonomy and helps explain why Trust softened this survey.",
+      cats: ['Autonomy', 'Trust'],
     },
     {
-      title: "Recognition Isn't Reliable Yet",
-      text: "Several comments describe good work going unacknowledged, or being met with requests for more rather than recognition, alongside an explicit ask for praise to reach every level of the team rather than certain roles. This suggests recognition is inconsistent enough that employees notice its absence more than its presence.",
-      cats: ['Feeling Valued'],
+      title: 'Blame and Favoritism Undercut Team Framing',
+      text: "New this quarter: several comments describe management handling problems inconsistently — one flags “favoritism” and asks that everyone be treated equally, another describes certain coworkers becoming defensive and shifting blame when issues arise rather than treating them as shared team problems. This directly touches the new “finding the cause, not assigning blame” question and helps explain its softer score.",
+      cats: ['Trust', 'Relatedness'],
     },
   ],
   byCategory: {
     'Autonomy': [
       {
         title: 'Approval Needed to Act Outside Assigned Area',
-        text: "Multiple comments describe needing a supervisor's sign-off before helping in another area, changing an approach, or acting on a new idea — even when the employee could see the need themselves. This suggests day-to-day autonomy may be narrower in practice than intended, with decisions defaulting to management rather than the person closest to the work.",
+        text: "Comments describe needing a supervisor's sign-off before helping in another area or acting on an idea — one notes being required to follow standard procedure even when a faster approach seems available, and another describes being held back from assisting elsewhere and told to “stay in your area” even with nothing left to do. Day-to-day autonomy continues to read as narrower in practice than intended.",
       },
       {
-        title: 'Ideas Raised but Not Always Acted On',
-        text: "A smaller number of comments describe bringing forward a suggestion or a different way of doing something without feeling it was heard by their manager. This may indicate autonomy is understood mainly as freedom to execute a task, not yet as license to help shape how the work gets done.",
+        title: 'A Direct Ask for Consensus Over Imposed Decisions',
+        text: "One comment goes further than past quarters, asking explicitly that a supervisor make decisions “based on a consensus with the entire work team, rather than imposing decisions,” and linking imposed decisions directly to lower-quality output. This reframes the long-running “ideas not acted on” pattern as a specific, actionable request rather than a general frustration.",
       },
     ],
     'Competency': [
       {
-        title: 'Cross-Training and Rotation Requests',
-        text: "The most frequent request across recent comments is for cross-training or the chance to rotate into a different department or task. Several employees describe feeling capped in one area for years, which may be limiting both skill growth and day-to-day motivation.",
+        title: 'Cross-Training and Rotation Requests, Still Unmet',
+        text: "The most frequent request remains cross-training or rotation into a different department or task — one comment cites five years in the same department without a change, and a general comment separately asks for “the opportunity to grow” rather than being told the required experience is missing. This is the most consistent theme across the full quarter.",
       },
       {
-        title: 'Growth Framed as Denied Rather Than Developed',
-        text: "A few comments describe growth conversations ending in “not enough experience yet” without a plan to build that experience. This could suggest development is being treated as a gate to pass rather than something actively coached toward.",
+        title: 'Manager Support for Growth Named Explicitly',
+        text: "When asked how a manager could better support growth, comments this quarter specifically ask for a manager to be hands-on and present rather than only in meetings, and to offer “moral[e] opportunities such as working in another department.” This pairs the long-standing growth request with a concrete idea for how to close it.",
       },
     ],
     'Relatedness': [
       {
-        title: 'Strong Team-Level Bonds',
-        text: "Motivation-related comments consistently point to teammates and day-to-day collaboration as a genuine bright spot, with pride in team output showing up repeatedly. This suggests the immediate team unit is a real strength to build on.",
+        title: 'Strong Team-Level Bonds, With a New Undercurrent of Self-Interest',
+        text: "Most comments still describe teammates and day-to-day collaboration as a genuine strength, but a new comment this quarter disagrees that the team wins and loses together, describing certain people as working “for themselves” and becoming defensive when issues arise. This softens what had been a consistently positive category.",
       },
       {
         title: 'Weaker Connection Beyond the Immediate Team',
-        text: "Separately, comments describe feeling left out of company-level decisions and experiencing slow or inconsistent support when reaching outside their own team for help. This may point to a gap between strong peer bonds and weaker connection to the wider organization.",
+        text: "Comments continue to describe slow or inconsistent support when reaching outside the immediate team for help, and a general comment separately asks for more attention to floor-level issues from leadership. The gap between strong peer bonds and weaker connection to the wider organization persists.",
       },
     ],
     'Leadership Connection': [
       {
         title: 'Requests for More Visible, Hands-On Leadership',
-        text: "A recurring and specific request is for managers and leads to spend more time directly on the floor rather than only in meetings, to understand day-to-day problems firsthand. This suggests employees may not feel their manager fully sees the realities of their work.",
+        text: "A recurring and specific request is for managers and leads to spend more time directly on the floor understanding day-to-day problems firsthand, rather than relying on meetings alone. This continues from prior quarters largely unchanged.",
       },
       {
-        title: 'Concerns Raised but Follow-Through Unclear',
-        text: "Several comments describe raising a concern with their manager and not seeing a clear response or change afterward. This may indicate that being heard and seeing something change as a result are landing as two different experiences for employees.",
+        title: 'Positive Feedback on the New Manager-Feedback Question, With a Caveat',
+        text: "The newly added question about difficult feedback landing as constructive scored well overall, including one comment praising a specific manager's leadership directly — but another comment ties a favorable answer to the condition that a supervisor's observations be “based on verifiable facts and not merely on rumors,” suggesting trust in feedback quality is real but conditional for at least some employees.",
       },
     ],
     'Feeling Valued': [
       {
-        title: 'Recognition Felt as Inconsistent',
-        text: "Comments describe recognition as something that happens some of the time but not reliably, with a few noting that strong performance is met with requests for more rather than acknowledgment. This may suggest recognition isn't yet a consistent habit across the team.",
+        title: 'Recognition Felt as Inconsistent, Now With a Live Low Score',
+        text: "Comments continue to describe recognition as happening some of the time but not reliably, and one comment this quarter scores feeling valued low directly, attributing it to “new management” seeming more focused on their own positions than on the people doing the work. This is a sharper, more specific version of a pattern that had previously read as general inconsistency.",
       },
       {
-        title: 'Recognition Requested Across All Levels',
-        text: "A specific ask that surfaced is for recognition to reach everyone doing good work, not just certain roles or more visible positions. This suggests employees may perceive recognition as unevenly distributed today.",
+        title: 'Growth and Recognition Are Named Together',
+        text: "A general comment asks to work somewhere contributions are appreciated, feedback is given, and opportunities exist “to move on and have different roles” — tying feeling valued directly to the same growth-path gap raised elsewhere. Employees don't appear to separate recognition from advancement; both feel like the same ask.",
       },
     ],
     'Clarity to Succeed': [
       {
-        title: 'Quality vs. Quantity Tension',
-        text: "A few comments describe an unclear or conflicting standard for success — specifically, whether quality or output volume is what's actually being measured day to day. Quality issues were also described as sometimes affecting people who weren't responsible for them, which can blur what “doing the job well” means in practice.",
+        title: 'Quality vs. Quantity Tension, Reinforced This Quarter',
+        text: "Comments continue to describe an unclear or conflicting standard for success — whether quality or output volume is what's actually being measured — with one comment this quarter explicitly hoping supervisors will “prioritize the quality of work over other factors (such as high quantity, even if it entails poor quality).”",
       },
       {
         title: 'Success Tied to Growth Path',
-        text: "Since expectations for “the next level” come up alongside requests for cross-training, employees may not fully separate what success looks like today from what it takes to grow into the next role — suggesting clarity conversations could benefit from addressing both together.",
+        text: "Requests for cross-training and a clearer path to the next level continue to appear alongside questions about what success looks like today, suggesting employees experience clarity and career growth as one connected question rather than two separate ones.",
+      },
+    ],
+    'Trust': [
+      {
+        title: 'New This Quarter: Favoritism and Blame-Shifting',
+        text: "With Trust newly measured by a dedicated question this quarter, comments surface real concerns directly: one names “favoritism” and asks that everyone be treated equally, and others describe certain coworkers becoming defensive and shifting blame onto others when team issues arise rather than addressing them collectively. This is new, specific evidence behind what had previously been a harder-to-pin-down category.",
       },
     ],
   },
@@ -3383,33 +3415,33 @@ const FEEDBACK_THEMES = {
 // EMPLOYEE FEEDBACK — PER-EXPERIENCE (added July 16, 2026)
 // Feeds the Insights Hub's Employee Feedback / Focused Feedback views (see
 // renderEmployeeFeedbackOverall/Single/Double below) so they react to the Category Scores chart's
-// currentExperience while still always analyzing only the latest 3 completed surveys (March, April,
-// May 2026), same rolling-3-survey methodology as FEEDBACK_THEMES above (never the chart's own
-// Period dropdown — see acSurveyScopeLabel()). Production keeps using FEEDBACK_THEMES directly (the
-// existing hand-curated content, verified against the same 3 surveys' raw comments). HQ, Remote,
-// and All are new: each summarized directly from that population's own real anonymized comments
-// (HQIP/R Pulse & Engagement Survey Comments exports, March-May 2026; 'All' synthesized from the
-// combined comments across all three populations, per the same "combined-underlying-data" principle
-// used elsewhere in this file) — grounded in what was actually written, not derived from
-// Production's themes.
+// currentExperience while still always analyzing only the latest 3 completed surveys (April, May,
+// July 2026 — March 2026 rolled out of the window this refresh; no June 2026 Comments file exists),
+// same rolling-3-survey methodology as FEEDBACK_THEMES above (never the chart's own Period dropdown
+// — see acSurveyScopeLabel()). Production keeps using FEEDBACK_THEMES directly (the existing
+// hand-curated content, refreshed against the same 3 surveys' raw comments). HQ, Remote, and All are
+// each summarized directly from that population's own real anonymized comments (HQIP/R Pulse &
+// Engagement Survey Comments exports, April-July 2026; 'All' synthesized from the combined comments
+// across all three populations, per the same "combined-underlying-data" principle used elsewhere in
+// this file) — grounded in what was actually written, not derived from Production's themes.
 const FEEDBACK_THEMES_BY_EXPERIENCE = {
   Production: FEEDBACK_THEMES,
   HQ: {
     overall: [
       {
-        title: "Growth Path Understood in Principle, but Time and a Concrete Roadmap Are Still Missing",
-        text: "HQ employees describe a genuinely clear sense of what success looks like and what's expected of them, but the same comments pair that understanding with real gaps: one says they \"have opportunities but often no time\" for training, another describes workload and competing priorities making it hard to find dedicated time for CAD and PMI-related development, and open-ended responses separately ask for the progression ladder to be reviewed in detail and for \"a clear roadmap at least to the next tier.\" This combination — confidence in the destination paired with uncertainty about the runway to get there — shows up across Competency and Clarity to Succeed.",
+        title: "Growth Path Understood in Principle, but Criteria Still Feel Ambiguous and Time-Constrained",
+        text: "HQ employees describe a genuinely clear sense of what success looks like day to day, but the same population repeatedly flags gaps in the mechanics of advancement: one comment this quarter says promotion and raise criteria are ambiguous and “constantly changing... moving goalposts” and asks that they be clearly defined, while others describe having access to CAD/PMI training but rarely the dedicated time to use it, and a separate comment notes the progression ladder “haven't been reviewed together in detail.” Confidence in the destination continues to outpace clarity and capacity around the path there.",
         cats: ['Competency', 'Clarity to Succeed'],
       },
       {
         title: "High Trust and Pride Sit Alongside Real Capacity Strain",
-        text: "Many HQ comments are strikingly positive about ownership, trust, and pride in the company, but a consistent undercurrent of being \"too busy\" runs beneath them: one employee disagrees that they can ask for help without burdening others because \"most people are too busy to take on additional work,\" another says the team \"is not ideally structured for maximum success,\" and open-ended answers separately call for hiring more help and expanding the team \"to support company growth.\" Even the Autonomy comments describe limited bandwidth, not lack of trust, as the main thing standing between wanting to pursue a new idea and actually doing it.",
+        text: "Many HQ comments remain strikingly positive about ownership, trust, and pride in the company, but a consistent undercurrent of being \"too busy\" runs beneath them: one employee disagrees that they can ask for help without burdening others because \"most people are too busy to take on additional work,\" another says the team \"is not ideally structured for maximum success,\" and open-ended answers separately call for hiring more help and expanding the team \"to support company growth.\" Even the Autonomy comments describe limited bandwidth, not lack of trust, as the main thing standing between wanting to pursue a new idea and actually doing it.",
         cats: ['Trust', 'Autonomy'],
       },
       {
-        title: "Recognition and Celebration Lag Behind the Work",
-        text: "Despite high pride and loyalty overall, several comments point out that effort isn't being celebrated in a way that matches it: one notes the team works hard but doesn't \"feel celebrated,\" another asks for tangible recognition like anniversary \"trophies\" rather than just a dessert and for wins to be celebrated \"not just checked off,\" and a third ties feeling valued directly to whether \"the approach taken matches what leadership has in mind\" rather than to the work itself. One comment goes further, asking that leadership \"run via achievement\" rather than fear.",
-        cats: ['Feeling Valued', 'Leadership Connection'],
+        title: "Feeling Valued Has Gone From a Celebration Gap to a Mixed, Uncertain Signal",
+        text: "Prior quarters described high pride paired with a lack of celebration; this quarter one comment scores feeling valued as a flat mix — \"sometimes I feel very valued. Sometimes undervalued. Sometimes unsure\" — while open-ended answers still separately ask for more team bonding and recognition since the team works hard but doesn't \"feel celebrated.\" A related comment on shared team wins and losses adds that credit and fault aren't always applied consistently, which may be part of what's making recognition feel unpredictable.",
+        cats: ['Feeling Valued', 'Relatedness'],
       },
     ],
     byCategory: {
@@ -3418,22 +3450,25 @@ const FEEDBACK_THEMES_BY_EXPERIENCE = {
       ],
       'Competency': [
         { title: "Learning Opportunities Exist, But Time to Use Them Doesn't Always Follow", text: "Employees describe real access to learning and growth, but repeatedly note the catch: one says they \"have opportunities but often no time,\" and a longer comment explains that pursuing CAD and PMI-related training has been difficult \"due to workload and competing priorities,\" with mentors themselves having \"limited bandwidth to provide the level of hands-on training.\" An open-ended suggestion separately asks for a recurring monthly session dedicated to development and cross-team knowledge sharing, reinforcing that the gap is time and structure, not desire." },
+        { title: "Promotion Criteria Read as Ambiguous and Shifting", text: "A new comment this quarter is more pointed than prior quarters' general growth-path requests, describing the system for reaching the next level as \"ambiguous and constantly changing\" with \"vague, moving goalposts,\" and separately asking that promotion and raise criteria \"needs to be clearly defined.\" This sharpens the existing time/structure gap into a specific ask: a stable, written definition of what advancement requires." },
       ],
       'Relatedness': [
         { title: "Collaboration Is a Strength, But Workload Pushes Teams Into Silos", text: "Most Relatedness comments describe strong mutual support and easy cross-department collaboration, but one notes the team is \"often siloed due to volume of work,\" and another flags room to be looped into cross-company decisions earlier in the process. An open-ended response echoes this, asking for \"more opportunities for different teams to bond and also be able to give feedback to each other,\" suggesting connection across teams holds up day-to-day but thins out under workload." },
+        { title: "Shared Wins and Losses Don't Always Feel Evenly Credited", text: "A new comment this quarter is neutral on whether the team wins and loses together, noting uncertainty over \"what qualifies as winning and losing\" and that credit or fault isn't \"always applied correctly.\" This is a softer, more ambiguous signal than an outright disagreement, but worth watching alongside the broader recognition theme below." },
       ],
       'Leadership Connection': [
         { title: "Managers Communicate Well, But Earlier Foresight Is Still Requested", text: "Leadership Connection comments are largely strong, with specific praise for managers who explain the reasoning behind decisions and give actionable feedback. Even so, one notes that when expectations change there is \"little time to change the work at the desired quality without overworking,\" and another wishes for \"additional communication or earlier visibility.\" A separate open-ended answer asks for \"more foresight into real budgets\" and \"more triaging of senior leadership's asks,\" pointing to the same theme: the relationship is trusted, but the timing of information sometimes isn't." },
+        { title: "Difficult Feedback Is Landing Well, With One Conditional Caveat", text: "The newly added question on whether difficult feedback feels constructive scored strongly this quarter, including a comment praising a specific manager's leadership directly. One comment frames its favorable answer as conditional, though: constructive feedback works \"provided\" a supervisor's observations are based on verifiable facts \"and not merely on rumors\" — a specific, named condition for trust rather than a general endorsement." },
       ],
       'Feeling Valued': [
-        { title: "Recognition Is Inconsistent and Often Symbolic Rather Than Substantive", text: "With only a handful of direct comments, feeling valued splits between one employee who feels highly recognized through trust and ownership, and another who says it \"depends on whether the approach taken matches what leadership has in mind.\" Open-ended responses add detail: the team works hard but doesn't \"feel celebrated,\" and one asks for tangible recognition — anniversary \"trophies,\" celebrating wins rather than just checking them off, and team outings driven \"top down\" rather than requested by employees." },
+        { title: "A Flat, Mixed Read Replaces Last Quarter's Celebration Gap", text: "Where prior quarters described high pride paired with a lack of celebration, this quarter's direct comment on feeling valued is a flat mix: \"sometimes I feel very valued. Sometimes undervalued. Sometimes unsure.\" Open-ended responses still separately note the team works hard but doesn't \"feel celebrated,\" suggesting the underlying gap hasn't closed so much as become harder to characterize as one consistent direction." },
       ],
       'Clarity to Succeed': [
-        { title: "Success Is Understood Broadly, But the Path to the Next Level Needs More Specificity", text: "Employees describe a solid grasp of what success looks like in their current role, but the same comments note \"room for additional clarity and alignment as roles evolve.\" This is reinforced by open-ended answers noting the progression ladder \"haven't [been] reviewed together yet in detail,\" and requests for \"a clear roadmap at least to the next tier\" and a better understanding of \"what is needed to achieve the next level.\"" },
+        { title: "Success Is Understood Broadly, But the Path to the Next Level Still Needs More Specificity", text: "Employees describe a solid grasp of what success looks like in their current role, but comments continue to note \"room for additional clarity and alignment as roles evolve,\" and a pointed new comment this quarter says advancement criteria are ambiguous and constantly shifting. Requests for \"a clear roadmap at least to the next tier\" and clearer definitions of what's needed persist into this survey." },
       ],
       'Trust': [
-        { title: "Asking for Help Runs Into Real Capacity Limits", text: "While several comments describe feeling safe admitting mistakes or pushing back on leadership, one directly disagrees that they can ask for help without feeling like a burden, explaining that \"most people are too busy to take on additional work,\" and another disagrees that role demands feel achievable because \"the team is not ideally structured for maximum success.\" Open-ended requests to \"hire more help\" and expand the team \"to support company growth\" point to the same underlying capacity issue." },
-        { title: "Decisions Can Feel Last-Minute", text: "One comment notes that decisions \"seem to change last minute or on a whim,\" undercutting confidence in planning. An open-ended response raises a related concern, asking for \"more foresight into real budgets\" and \"more foresight and details into future wants,\" suggesting a smaller but real desire for more advance notice before direction shifts." },
+        { title: "Root-Cause Focus Holds Among Close Collaborators, Less Certainly Beyond Them", text: "The newly added Trust question scored favorably overall, with one comment agreeing the team focuses on finding the cause rather than assigning blame — but qualifying that this holds true \"among close collaborators,\" implying less confidence that the same discipline extends company-wide. This is a useful early signal to watch as more data accumulates for this category." },
+        { title: "Asking for Help Runs Into Real Capacity Limits", text: "One comment directly disagrees that they can ask for help without feeling like a burden, explaining that \"most people are too busy to take on additional work,\" and another disagrees that role demands feel achievable because \"the team is not ideally structured for maximum success.\" Open-ended requests to \"hire more help\" and expand the team \"to support company growth\" point to the same underlying capacity issue." },
       ],
     },
   },
@@ -3441,7 +3476,7 @@ const FEEDBACK_THEMES_BY_EXPERIENCE = {
     overall: [
       {
         title: "No Clear Path to the Next Level",
-        text: "The single most consistent theme across March, April, and May is the absence of a documented growth or advancement path — comments describe managers who haven't communicated what's needed to reach the next level, no roadmap or documented goals, and a sense that promotion depends on management's discretion rather than a defined process ('I've never been given a path forward and it's frustrating watching others get promoted'). This lines up directly with Competency and Clarity to Succeed comments describing no documented framework for what success or advancement looks like.",
+        text: "The single most consistent theme across April, May, and July is the absence of a documented growth or advancement path — comments describe managers who haven't communicated what's needed to reach the next level, no roadmap or documented goals, a sense that promotion depends on management's discretion rather than a defined process ('I've never been given a path forward and it's frustrating watching others get promoted'), and, this quarter, a comment noting the question itself is hard to answer because it's unclear whether \"the next level\" means a promotion or hitting operational goals. This lines up directly with Competency and Clarity to Succeed comments describing no documented framework for what success or advancement looks like.",
         cats: ['Competency', 'Clarity to Succeed'],
       },
       {
@@ -3450,14 +3485,14 @@ const FEEDBACK_THEMES_BY_EXPERIENCE = {
         cats: ['Leadership Connection', 'Competency'],
       },
       {
-        title: "Raising Concerns Meets Dismissiveness, Not Resolution",
-        text: "A recurring and more severe pattern describes a team culture where disagreement, mistakes, or requests for help are met with hostility, dismissiveness, or confrontation rather than collaborative problem-solving — including concerns escalated to leadership multiple times 'without seeing meaningful improvement.' A March open-ended comment describes this as a low-trust, fragmented environment causing strain that extends beyond the workday, closely mirroring the low scores in Trust and Relatedness.",
+        title: "Root Causes Get Found, But Rarely Turn Into Process Change",
+        text: "A recurring pattern across the quarter describes disagreement, mistakes, or requests for help met with hostility, dismissiveness, or confrontation rather than collaborative problem-solving — including concerns escalated to leadership multiple times 'without seeing meaningful improvement.' This quarter's version is more specific: one comment describes root-cause analysis happening in form, but the conversation shifting to \"who was involved,\" with no resulting process change to prevent recurrence — echoing a separate comment that individuals who fail are \"singled out rather than treating everything as a process issue.\" This closely mirrors the low scores in Trust and Relatedness.",
         cats: ['Trust', 'Relatedness'],
       },
     ],
     byCategory: {
       'Autonomy': [
-        { title: "Prioritization Stays Top-Down", text: "Comments describe limited autonomy in day-to-day decisions ('not often entrusted with decisions... that meaningfully influence departmental outcomes') and broader prioritization that is 'typically directed top-down with limited individual influence.' This echoes an open-ended comment describing feeling 'micromanaged down to a tee' and a direct ask for managers to 'do less micromanagement.'" },
+        { title: "Prioritization Stays Top-Down", text: "Comments describe limited autonomy in day-to-day decisions ('not often entrusted with decisions... that meaningfully influence departmental outcomes') and broader prioritization that is 'typically directed top-down with limited individual influence.' This echoes an open-ended comment describing feeling 'micromanaged down to a tee,' a direct ask for managers to 'do less micromanagement,' and a new, more pointed comment this quarter naming \"too much bureaucracy and micromanagement\" directly on the freedom-to-choose-how-I-work question." },
         { title: "Ideas Are Heard but Rarely Acted On", text: "One comment notes new ideas are 'acknowledged initially but not meaningfully acted on or seriously considered afterward,' a pattern echoed in open-ended requests for leadership to 'genuinely consider employee thoughts and ideas' and to bring back anonymous questions at knowledge-share sessions." },
       ],
       'Competency': [
@@ -3466,6 +3501,7 @@ const FEEDBACK_THEMES_BY_EXPERIENCE = {
       ],
       'Relatedness': [
         { title: "Team Culture Feels Combative Rather Than Collaborative", text: "Comments describe a team culture that 'often feels combative,' where concerns are 'dismissed, ignored, or publicly challenged... without full context,' and escalating the issue to leadership 'multiple times' hasn't produced improvement. Open-ended comments from earlier months describe the same team as 'fragmented,' with confusion over ownership and collaboration 'very challenging with certain team members.'" },
+        { title: "Individuals Get Singled Out Instead of Fixing the Process", text: "A new comment this quarter frames a related but distinct concern: the team wins together, but when something goes wrong, individuals who fail are \"singled out rather than treating everything as a process issue.\" This pairs with a Trust comment describing root-cause conversations that shift toward \"who was involved\" rather than what changed — the pattern looks less like isolated conflict and more like a habit of assigning individual blame instead of fixing shared process." },
         { title: "Input Isn't Sought Before Decisions Are Made", text: "Comments note input 'is seldom sought before decisions impacting the team are made' and that processes 'frequently change informally without consistent communication, alignment, or team-wide discussion,' leaving employees feeling excluded from important discussions. Notably, the same respondents describe people outside their immediate team (Customer Support, IDE, Product) as approachable and collaborative, suggesting the disconnect is concentrated within the team rather than across the org." },
       ],
       'Leadership Connection': [
@@ -3477,12 +3513,13 @@ const FEEDBACK_THEMES_BY_EXPERIENCE = {
         { title: "Team Culture Overshadows the Work Itself", text: "Several comments attribute low feelings of value less to the work itself and more to team culture — 'ongoing inter-team conflict' is named directly as a driver, and one respondent who is otherwise 'proud of the work I do' says 'ongoing concerns around team culture, collaboration, communication, and departmental support have significantly impacted my overall experience.'" },
       ],
       'Clarity to Succeed': [
-        { title: "No Documented Path to the Next Level", text: "Comments describe 'no clearly documented framework... defining what success, growth, or advancement look like' and no 'updated documentation that explains what my current role needs to achieve in order to progress.' This is echoed in open-ended comments from earlier months: 'I've never been given a path forward' and 'there's no clear growth plan, career path, or meaningful discussion around advancement.'" },
-        { title: "Advancement Feels Discretionary Rather Than Merit-Based", text: "Comments describe advancement as tied to 'opportunities for influence, autonomy, and meaningful involvement in decision-making' rather than a defined process, with one open-ended comment noting it 'depends more on management's discretion than on a defined process' and another describing 'differing outcomes across the team despite similar or strong performance.'" },
+        { title: "No Documented Path to the Next Level", text: "Comments describe 'no clearly documented framework... defining what success, growth, or advancement look like' and no 'updated documentation that explains what my current role needs to achieve in order to progress.' This is echoed in comments from earlier months: 'I've never been given a path forward' and 'there's no clear growth plan, career path, or meaningful discussion around advancement,' and reinforced this quarter by a comment questioning whether \"the next level\" is even a well-defined concept — promotion, or hitting operational goals?" },
+        { title: "Advancement Feels Discretionary Rather Than Merit-Based", text: "Comments describe advancement as tied to 'opportunities for influence, autonomy, and meaningful involvement in decision-making' rather than a defined process, with one comment noting it 'depends more on management's discretion than on a defined process' and another describing 'differing outcomes across the team despite similar or strong performance.'" },
       ],
       'Trust': [
         { title: "Raising Concerns or Mistakes Can Bring Hostility", text: "Comments describe voicing disagreement with leadership as unsafe, 'met with hostility, defensiveness, dismissiveness, or negative professional repercussions,' admitting mistakes leading to 'overly critical, dismissive, or confrontational responses,' and asking for help sometimes met with 'dismissive, passive-aggressive... responses.' This pattern spans several distinct trust-related questions rather than a single isolated complaint." },
-        { title: "Process Breakdowns Undercut Confidence and Accountability", text: "Comments describe established processes not being consistently followed — including changes 'merged or moved to production during active testing cycles without communication to QA' — which 'create unnecessary instability.' An open-ended comment goes further, calling for 'realistic and objective mechanisms to evaluate performance' and stronger accountability, 'especially for management roles.'" },
+        { title: "Root-Cause Analysis Exists in Form, Not Always in Follow-Through", text: "A new comment on this quarter's dedicated Trust question describes the mechanics of root-cause analysis working — a process exists to find the cause — but two things undercut it: the conversation \"shifts to who was involved,\" and even once a root cause is identified, it hasn't reliably led to \"an actual process change that would prevent a recurrence.\" This gives concrete shape to what previously read as a general accountability complaint." },
+        { title: "Process Breakdowns Undercut Confidence and Accountability", text: "Comments describe established processes not being consistently followed — including changes 'merged or moved to production during active testing cycles without communication to QA' — which 'create unnecessary instability.' A comment from an earlier month goes further, calling for 'realistic and objective mechanisms to evaluate performance' and stronger accountability, 'especially for management roles.'" },
       ],
     },
   },
@@ -3490,31 +3527,33 @@ const FEEDBACK_THEMES_BY_EXPERIENCE = {
     overall: [
       {
         title: "Growth Path & Advancement Clarity Gap",
-        text: "Across Production, Remote, and even HQ, the most repeated ask is for a documented, transparent path to the next level. Production employees describe feeling capped in the same department for years with no route out (\"we need to get the opportunity to grow... not to be held down\"); Remote employees, especially in QA/software, say there is no documented framework for success or advancement and describe watching peers get promoted without knowing why or how; and even in HQ — the strongest-performing population on this topic — comments ask for the progression ladder to be reviewed \"in detail\" or for \"a clear roadmap to at least the next tier.\" This lines up with Competency and Clarity to Succeed both showing softness company-wide, and points to a missing documented framework rather than a single team's management problem.",
+        text: "Across Production, Remote, and even HQ, the most repeated ask is for a documented, transparent path to the next level. Production employees describe staying in the same department for years despite repeated requests to rotate (\"we need to get the opportunity to grow... not to be held down\"); Remote employees, especially in QA/software, say there is no documented framework for success or advancement, and this quarter add that even the survey question itself is ambiguous about what \"the next level\" means; and HQ — the strongest-performing population on this topic — now describes advancement criteria as \"ambiguous and constantly changing\" with \"moving goalposts,\" a sharper complaint than prior quarters' general requests for a roadmap. This lines up with Competency and Clarity to Succeed both remaining soft company-wide, and points to a missing documented framework rather than a single team's management problem.",
         cats: ['Competency', 'Clarity to Succeed'],
       },
       {
-        title: "Voice Without Follow-Through",
-        text: "Production and Remote describe a nearly identical pattern: raising a concern, an idea, or pushback to management and not seeing it translate into visible change. Production says expressing a struggle to management \"doesn't change anything\" afterward, and a Remote comment describes escalating team-culture concerns to leadership \"multiple times\" without meaningful improvement. The same shape appears in Autonomy, where both groups describe ideas being \"acknowledged\" or heard but not acted on, with decisions defaulting to management rather than the person closest to the work. HQ is the clear exception, describing managers who explain reasoning and close the loop, which sharpens rather than dilutes the contrast with the other two groups.",
-        cats: ['Leadership Connection', 'Autonomy'],
+        title: "Decisions Handed Down, Not Worked Out Together",
+        text: "Production and Remote describe a similar dynamic from different angles this quarter: Production asks directly for a supervisor to decide \"based on a consensus with the entire work team, rather than imposing decisions,\" tying imposed calls to lower-quality outcomes, while Remote names \"too much bureaucracy and micromanagement\" on the same freedom-to-choose-how-I-work question. Both echo the longer-running pattern of ideas being \"acknowledged\" but not acted on, with decisions defaulting to management rather than the person closest to the work. HQ remains the clear exception, describing managers who explain reasoning and close the loop.",
+        cats: ['Autonomy', 'Leadership Connection'],
       },
       {
-        title: "Recognition Gap Widens Into a Trust Problem Outside HQ",
-        text: "Feeling valued is inconsistent everywhere, but severity clearly escalates outside HQ. HQ comments ask for more celebration and top-down recognition even while scores stay high; Production describes good work going unacknowledged or met with \"they want more\" instead of praise; Remote shows the most frequent and severe low scores in the dataset, several explicitly tying the lack of recognition to inter-team conflict, absent manager advocacy, and — in the most serious comments — a sense of being marginalized or indirectly pushed toward leaving. This same population shows the sharpest Trust erosion (unsafe to disagree, mistakes met with defensiveness), suggesting recognition and psychological safety are eroding together rather than independently.",
-        cats: ['Feeling Valued', 'Trust'],
+        title: "When Things Go Wrong, Blame Lands on People Instead of Process",
+        text: "With Trust newly measured by a dedicated question this quarter, a consistent shape emerges across all three populations: Production names \"favoritism\" directly and describes coworkers becoming defensive and shifting blame when issues arise; Remote describes root-cause analysis happening in form but the conversation shifting to \"who was involved,\" with no resulting process change, and separately notes individuals who fail get \"singled out rather than treating everything as a process issue\"; HQ's one comment on this question is more positive but qualified — true \"among close collaborators,\" implying less confidence beyond that circle. This is new, concrete evidence behind what had previously been a harder-to-pin-down category, and it connects directly to the still-soft Relatedness and Feeling Valued scores in Production and Remote.",
+        cats: ['Trust', 'Relatedness'],
       },
     ],
     byCategory: {
       'Autonomy': [
-        { title: "Ideas Acknowledged but Rarely Acted On", text: "Remote and Production describe the same frustration: an idea gets raised, gets heard, and then goes nowhere. Remote describes ideas being \"acknowledged initially but not meaningfully acted on,\" while Production describes bringing ideas to a supervisor who \"doesn't listen at all.\" HQ, by contrast, describes being trusted to drive initiatives independently — suggesting the gap is in follow-through, not in whether input is invited." },
-        { title: "Autonomy Narrows at the Edge of a Defined Role", text: "Production employees describe being told to stay within their assigned area even when they have nothing to do and can see where help is needed, while Remote describes limited say over decisions that affect departmental outcomes, with broader prioritization \"directed top-down.\" Both describe decisions defaulting upward to management, even though HQ describes the opposite experience of being trusted to determine how to approach problems." },
+        { title: "Ideas Acknowledged but Rarely Acted On", text: "Remote and Production describe the same frustration: an idea gets raised, gets heard, and then goes nowhere. Remote describes ideas being \"acknowledged initially but not meaningfully acted on,\" while Production's April comments describe bringing ideas to a supervisor who \"doesn't listen at all,\" now reinforced by a direct July ask for decisions to be made \"based on a consensus with the entire work team, rather than imposing decisions.\" HQ, by contrast, describes being trusted to drive initiatives independently — suggesting the gap is in follow-through, not in whether input is invited." },
+        { title: "Autonomy Narrows at the Edge of a Defined Role", text: "Production employees describe being told to follow standard procedure and stay within their assigned area even when they can see where help is needed, while Remote's new comment names \"too much bureaucracy and micromanagement\" directly and separately describes broader prioritization as \"directed top-down.\" Both describe decisions defaulting upward to management, even though HQ describes the opposite experience of being trusted to determine how to approach problems." },
       ],
       'Competency': [
         { title: "Wanting Cross-Training or Rotation, and Being Told No", text: "Production's clearest recurring theme is being kept in the same department for years (one comment cites five years) despite repeatedly asking to rotate or cross-train, with management reportedly citing the need to \"stay in your department.\" This resurfaces in the general comments, where employees ask for \"the opportunity to grow\" rather than being told they lack the required experience." },
         { title: "Growth Time Exists on Paper, Not on the Calendar", text: "HQ and Remote separately describe a version of the same constraint — HQ notes having \"access to learning opportunities but often no time,\" with mentors who have \"limited bandwidth\" for hands-on training, while Remote describes structured training and higher-level involvement as \"felt limited\" given workload. The opportunity exists in principle in both groups but loses out to day-to-day demands." },
+        { title: "Even the Strongest Population Now Wants Clearer Advancement Criteria", text: "A new HQ comment this quarter is notably more pointed than prior requests, describing the system for reaching the next level as \"ambiguous and constantly changing\" with \"vague, moving goalposts,\" and directly asking that promotion and raise criteria be clearly defined — closing some of the gap between HQ's otherwise-strong Competency scores and the other two populations' longer-running complaints." },
       ],
       'Relatedness': [
         { title: "Left Out of Decisions That Affect the Work Itself", text: "Production describes not being consulted before floor changes are made (\"everyone finds out... in total shock\"), and Remote describes not feeling included in discussions where \"QA perspective and operational input could provide value.\" HQ, by comparison, describes being pulled into cross-functional discussions as its role has grown — inclusion in decisions appears to track with proximity to leadership rather than being a company-wide default." },
+        { title: "When Something Goes Wrong, Individuals Get Blamed Instead of the Process", text: "New this quarter in both Production and Remote: Production describes certain coworkers becoming defensive and shifting blame when team issues arise rather than working through them together, while Remote describes individuals who fail being \"singled out rather than treating everything as a process issue.\" Both connect directly to the same populations' new Trust comments about root-cause conversations drifting toward who was involved rather than what changed." },
         { title: "Cross-Team Help Is Slow to Arrive, Even Where Culture Is Otherwise Strong", text: "Production describes reaching out to other departments (e.g., IDE) and waiting a long time to be heard or see a change, and Remote's software team describes incomplete handoffs and unclear support expectations that make \"routine workflows... far more difficult... than they should be.\" Notably, Remote also says teams outside software (Customer Support, IDE, Product) are approachable — the friction looks specific to certain team boundaries, not universal." },
       ],
       'Leadership Connection': [
@@ -3526,10 +3565,11 @@ const FEEDBACK_THEMES_BY_EXPERIENCE = {
         { title: "Where Recognition Is Weak, So Is Confidence in Management Alignment", text: "A Remote comment ties feeling valued directly to managers not being \"fully aligned before communicating process changes,\" which \"reduces trust in the management layer,\" and a lower-scoring HQ comment similarly says feeling valued \"depends on whether the approach taken matches what leadership has in mind.\" In both groups, feeling valued reads as conditional on leadership coordination and consistency rather than an independent experience." },
       ],
       'Clarity to Succeed': [
-        { title: "No Documented Framework for Reaching the Next Level", text: "This is the most repeated and most strongly worded complaint in Remote's comments across all three months — no clear documentation of what success or advancement looks like, expectations that feel \"informal rather than transparent,\" and managers who haven't provided specific goals. Production's general comments echo the same gap (\"we need to get the opportunity to grow, not to be held down\"), while HQ, though clearly stronger here, still asks for the progression ladder to be reviewed \"in detail\" and for \"a clear roadmap to at least the next tier\" — the documentation gap exists to some degree everywhere, just far less severely at HQ." },
+        { title: "No Documented Framework for Reaching the Next Level", text: "This remains the most repeated and most strongly worded complaint in Remote's comments across all three months — no clear documentation of what success or advancement looks like, expectations that feel \"informal rather than transparent,\" managers who haven't provided specific goals, and now a comment questioning whether \"the next level\" is even a well-defined concept. Production's general comments echo the same gap (\"we need to get the opportunity to grow, not to be held down\"), and HQ — previously the clear exception — now describes its own version directly: advancement criteria that are \"ambiguous and constantly changing\" with \"moving goalposts.\" The documentation gap exists everywhere; only its severity differs." },
       ],
       'Trust': [
-        { title: "Psychological Safety Around Disagreement and Mistakes — Concentrated in Remote", text: "Remote's software-team comments are unusually direct here: voicing disagreement with leadership is described as unsafe and sometimes met with \"hostility, defensiveness... or negative professional repercussions,\" and admitting mistakes can lead to \"overly critical, dismissive, or confrontational responses.\" This contrasts sharply with HQ, where multiple comments describe feeling safe to push back and admit mistakes without fear of blame. There isn't enough comment volume tagged to this category from Production to confirm whether the pattern extends there, though Production's Leadership Connection comments about concerns \"not changing anything\" point in a related direction." },
+        { title: "A New, Company-Wide Question Surfaces the Same Pattern Three Different Ways", text: "With Trust newly measured by a dedicated \"finding the cause, not assigning blame\" question this quarter, each population's response fits a common shape: Production names \"favoritism\" directly and describes coworkers becoming defensive and shifting blame onto others; Remote describes root-cause analysis happening in form, but the conversation shifting to \"who was involved,\" with no resulting process change; HQ's comment is the most positive, agreeing this holds true, but only \"among close collaborators\" — a qualified endorsement rather than a clean one. Read together, accountability looks real at the individual/team level but inconsistent as it scales outward." },
+        { title: "Psychological Safety Around Disagreement and Mistakes — Still Concentrated in Remote", text: "Remote's software-team comments remain unusually direct here: voicing disagreement with leadership is described as unsafe and sometimes met with \"hostility, defensiveness... or negative professional repercussions,\" and admitting mistakes can lead to \"overly critical, dismissive, or confrontational responses.\" This contrasts with HQ, where comments describe feeling safe to push back and admit mistakes without fear of blame. There isn't enough comment volume tagged to this category from Production to confirm whether the pattern extends there, though Production's Autonomy and Relatedness comments about imposed decisions and blame-shifting point in a related direction." },
         { title: "Confidence to Decide Under Pressure Depends on Process Consistency", text: "HQ describes having the clarity to make confident decisions under pressure because roles, stakeholders, and processes are well understood, while Remote describes the opposite: decisions under pressure are undermined by processes \"not consistently followed,\" including changes merged to production during active testing without communicating to QA. This looks less like an individual confidence gap and more like a difference in process maturity between the two environments." },
       ],
     },
@@ -3540,12 +3580,12 @@ const FEEDBACK_THEMES_BY_EXPERIENCE = {
 // single employees touching both categories in the same remark — grounding a
 // specific synthesized note rather than the generic combiner below.
 const FEEDBACK_PAIR_NOTES = {
-  'Autonomy|Leadership Connection':
-    "Comments touching both areas describe a similar dynamic: employees say they hesitate to act on their own judgment or bring forward an idea because they expect a manager to override it rather than engage with it. This may indicate the two are connected in practice — limited follow-through on ideas could be dampening how much independence employees feel, even where the process technically allows it.",
+  'Autonomy|Competency':
+    "A July comment ties these two directly together, asking that a supervisor decide \"based on a consensus with the entire work team, rather than imposing decisions,\" and explaining that imposed decisions have specifically produced lower-quality work. This suggests the two aren't separate concerns for at least some employees — the ask for more say in how work gets done is also, in the same breath, an ask for better outcomes.",
   'Clarity to Succeed|Competency':
-    "These two draw on much of the same underlying feedback, since employees most often raise them together: several describe wanting to understand what “the next level” requires while also asking for the cross-training or coaching to actually get there. This suggests employees don't experience clarity and capability as separate problems — without a path to build the skill, clearer expectations alone may not feel actionable.",
-  'Competency|Leadership Connection':
-    "A few comments connect the two directly — describing hard work in a growth conversation going unacknowledged, or asking for a manager to be hands-on enough to actually help build new skills rather than just approve requests. This may indicate manager engagement is part of what determines whether employees feel supported in growing their capability, not just formal training access.",
+    "These two draw on much of the same underlying feedback, since employees most often raise them together: comments describe wanting to understand what “the next level” requires while also asking for the cross-training or coaching to actually get there, and a May comment separately asks for a manager to be hands-on and offer \"opportunities such as working in another department.\" Employees don't appear to experience clarity and capability as separate problems — without a path to build the skill, clearer expectations alone may not feel actionable.",
+  'Feeling Valued|Leadership Connection':
+    "A July comment connects these directly, scoring feeling valued low and attributing it to \"new management\" seeming more focused on their own positions than on the people doing the work — recognition, in this comment, reads as inseparable from confidence in leadership's priorities rather than a standalone measure of appreciation.",
 };
 
 function feedbackPairKey(catA, catB) { return [catA, catB].sort().join('|'); }
@@ -4415,11 +4455,25 @@ function currentScores() {
 
 // One category's line dataset. Extracted so both the full chart build and the incremental
 // add/remove path (updateTrendForCategoryToggle) construct datasets identically.
+//
+// Normalized Score fallback points (Leadership Connection/Trust, legacy 1–10-scale periods with no
+// source buckets — see NORMALIZED_SCORE_LC_TRUST above): substituted only when the chart is on the
+// favorability metric (rawAverage's own SCORES_BY_EXPERIENCE is never null for these cells, so the
+// fallback never applies there). Per explicit user decision (see Data Dictionary Change Log), these
+// points are deliberately styled IDENTICALLY to real Favorability points — same circle/star marker,
+// same radius, same color, no legend entry, no distinguishing tooltip text (see the trend tooltip's
+// label callback below) — so the two are visually and textually indistinguishable anywhere in the
+// dashboard's UI. The distinction still exists in the data layer (favorabilityDisplayValue()'s
+// isFallback flag, unused here) and in this file's documentation, for anyone maintaining the code.
 function buildCategoryDataset(cat, idx) {
   const scores = currentScores();
+  const isFavMetric = TREND_CHART_METRIC === 'favorability';
+  const displayValue = gi => isFavMetric
+    ? favorabilityDisplayValue(cat, currentExperience, gi, scores[cat][gi]).value
+    : scores[cat][gi];
   return {
     label: cat,
-    data: idx.map(i => scores[cat][i]),
+    data: idx.map(gi => displayValue(gi)),
     fill: false,
     spanGaps: true,
     tension: 0.35,
@@ -4428,14 +4482,14 @@ function buildCategoryDataset(cat, idx) {
     order: 1,
     pointStyle: idx.map(gi => ENGAGEMENT_SURVEYS.has(PERIODS_FULL[gi]) ? 'star' : 'circle'),
     pointRadius: idx.map(gi => {
-      if (scores[cat][gi] === null) return 0;
+      if (displayValue(gi) === null) return 0;
       return ENGAGEMENT_SURVEYS.has(PERIODS_FULL[gi]) ? 7 : 4;
     }),
     pointHoverRadius: idx.map(gi => {
-      if (scores[cat][gi] === null) return 0;
+      if (displayValue(gi) === null) return 0;
       return ENGAGEMENT_SURVEYS.has(PERIODS_FULL[gi]) ? 10 : 6;
     }),
-    pointBackgroundColor: idx.map(gi => scores[cat][gi] === null ? 'transparent' : COLORS[cat]),
+    pointBackgroundColor: idx.map(gi => displayValue(gi) === null ? 'transparent' : COLORS[cat]),
     pointBorderColor: idx.map(gi => ENGAGEMENT_SURVEYS.has(PERIODS_FULL[gi]) ? COLORS[cat] : 'transparent'),
     pointBorderWidth: idx.map(gi => ENGAGEMENT_SURVEYS.has(PERIODS_FULL[gi]) ? 1 : 0),
   };
@@ -4538,7 +4592,12 @@ function renderTrend() {
               if (c.dataset.label.includes(' trend') || c.raw === null) return null;
               const cat = c.dataset.label;
               const gi  = c.chart._periodIdx[c.dataIndex];
-              return `  ${cat}: ${trendMetric().tooltipValue(currentScores()[cat][gi])}`;
+              // Normalized Score fallback points (see NORMALIZED_SCORE_LC_TRUST / buildCategoryDataset)
+              // are deliberately given the exact same tooltip formatting as a real Favorability point
+              // — per explicit user decision (see Data Dictionary Change Log), no on-screen text
+              // anywhere distinguishes the two. c.raw already reflects whichever value was actually
+              // plotted (real Favorability or the Normalized Score fallback — see buildCategoryDataset).
+              return `  ${cat}: ${trendMetric().tooltipValue(c.raw)}`;
             },
             filter: item => !item.dataset.label.includes(' trend') && item.raw !== null,
           },
@@ -5692,7 +5751,7 @@ function renderQiExperienceControl() {
 // Δ vs prior, response counts, category filtering, search/sort results, and expanded question
 // detail all flow from qiRows() (below), which already reads qiExperience — so re-rendering the
 // subtitle (question count + scope label) and the table here is all that's needed. The category
-// filter pills themselves don't need re-rendering: every Experience shares the same 28 questions/
+// filter pills themselves don't need re-rendering: every Experience shares the same 9 questions/
 // categories (see QUESTION_DATA_BY_EXPERIENCE), so the pill list and the currently active filter
 // never change on an Experience switch.
 function setQiExperience(exp) {
@@ -5823,8 +5882,8 @@ function setQiSort(mode){ qiSort = mode; renderQiTable(); }
 function qiEscapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 
 // Question count reflects however many questions exist for the selected Experience (every
-// Experience currently carries the same 28 mapped questions — see QUESTION_DATA_BY_EXPERIENCE —
-// but this reads .length live rather than hardcoding 28, so it stays correct if that ever
+// Experience currently carries the same 9 mapped questions — see QUESTION_DATA_BY_EXPERIENCE —
+// but this reads .length live rather than hardcoding a count, so it stays correct if that ever
 // changes). Scope label mirrors the qiExpSegmented toggle's own selection.
 function renderQiSubtitle(){
   const sub = document.getElementById('qiSubtitle');
